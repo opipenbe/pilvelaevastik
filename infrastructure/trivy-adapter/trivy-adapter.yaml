@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: baseline
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/warn: baseline
+    istio.io/dataplane-mode: ambient
+  name: trivy-adapter
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: trivy-adapter
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://fjogeleit.github.io/trivy-operator-polr-adapter
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: trivy-adapter
+  namespace: flux-system
+spec:
+  serviceAccountName: kustomize-controller
+  targetNamespace: trivy-adapter
+  releaseName: trivy-adapter
+  chart:
+    spec:
+      chart: trivy-operator-polr-adapter
+      sourceRef:
+        kind: HelmRepository
+        name: trivy-adapter
+        namespace: flux-system
+  interval: 1m
+  timeout: 15m
+  install:
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 1m
+  values:
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
+    openreports:
+      enabled: true
+    adapters:
+      clusterVulnerabilityReports:
+        enabled: true
+      complianceReports:
+        enabled: true
+      configAuditReports:
+        enabled: true
+      infraAssessmentReports:
+        enabled: false
+      clusterInfraAssessmentReports:
+        enabled: false
+      exposedSecretReports:
+        enabled: false
+      rbacAssessmentReports:
+        enabled: false

@@ -1,0 +1,93 @@
+# https://docs.cilium.io/en/stable/network/servicemesh/istio/
+socketLB:
+  hostNamespaceOnly: true
+
+kubeProxyReplacement: true
+loadBalancer:
+  mode: hybrid
+cni:
+  customConf: false
+  uninstall: true
+  # https://docs.cilium.io/en/stable/network/servicemesh/istio/
+  exclusive: false
+bpf:
+  # https://istio.io/latest/docs/ambient/install/platform-prerequisites/#cilium
+  masquerade: false
+  hostLegacyRouting: true
+bgpControlPlane:
+  enabled: true
+autoDirectNodeRoutes: true
+directRoutingSkipUnreachable: true
+cluster:
+  name: ${talos_k8s_cluster_name}
+hubble:
+  enabled: true
+  metrics:
+    enableOpenMetrics: true
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+  relay:
+    enabled: true
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
+  ui:
+    enabled: true
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
+hostFirewall:
+  enabled: true
+prometheus:
+  enabled: true
+operator:
+  prometheus:
+    enabled: true
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
+ipam:
+  mode: kubernetes
+routingMode: native
+ipv4NativeRoutingCIDR: 10.245.0.0/16
+# Talos specific conf
+k8sServiceHost: localhost
+k8sServicePort: 7445
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+securityContext:
+  runAsUser: 0 # for BGP
+  privileged: true # for BGP
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE

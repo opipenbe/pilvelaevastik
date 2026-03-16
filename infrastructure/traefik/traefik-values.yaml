@@ -1,0 +1,141 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-values
+  namespace: flux-system
+data:
+  values.yaml: |
+    logs:
+      access:
+        enabled: true
+        format: "common" 
+    api:
+      dashboard: false
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: '{{ template "traefik.name" . }}'
+                app.kubernetes.io/instance: '{{ .Release.Name }}-{{ include "traefik.namespace" . }}'
+            topologyKey: kubernetes.io/hostname
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
+    deployment:
+      replicas: 3
+    updateStrategy:  # @schema additionalProperties: false
+      # -- Customize updateStrategy of Deployment or DaemonSet
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1  # @schema type:[integer, string, null]
+        maxSurge: 1        # @schema type:[integer, string, null]
+    image:
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    providers:
+      kubernetesGateway:
+        enabled: true
+    ports:
+      web:
+        port: 8000
+        protocol: TCP
+        expose:
+          default: false
+      websecure:
+        port: 8443
+        protocol: TCP
+        expose:
+          default: false
+      http:
+        asDefault:
+        port: 9000
+        expose:
+          default: true
+        exposedPort: 80
+        targetPort:
+        protocol: TCP
+        nodePort:
+        forwardedHeaders:
+          trustedIPs: []
+          insecure: false
+        proxyProtocol:
+          trustedIPs: []
+          insecure: false
+        transport:
+          respondingTimeouts:
+            readTimeout:   # @schema type:[string, integer, null]
+            writeTimeout:  # @schema type:[string, integer, null]
+            idleTimeout:   # @schema type:[string, integer, null]
+          lifeCycle:
+            requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
+            graceTimeOut:               # @schema type:[string, integer, null]
+          keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
+          keepAliveMaxTime:             # @schema type:[string, integer, null]
+        observability:  # @schema additionalProperties: false
+          metrics:  # @schema type:[boolean, null]; default: true
+          accessLogs:  # @schema type:[boolean, null]; default: true
+          tracing:  # @schema type:[boolean, null]; default: true
+          traceVerbosity:  # @schema enum:[minimal, detailed, null]; type:[string, null]; default: minimal
+      https:
+        port: 9443
+        hostPort:
+        containerPort:
+        expose:
+          default: true
+        exposedPort: 443
+        targetPort:
+        protocol: TCP
+        nodePort:  # @schema type:[integer, null]; minimum:0
+        appProtocol:  # @schema type:[string, null]
+        allowACMEByPass: false
+        http:
+          encodedCharacters:
+            allowEncodedSlash: false
+            allowEncodedBackSlash: false
+            allowEncodedNullCharacter: false
+            allowEncodedSemicolon: false
+            allowEncodedPercent: false
+            allowEncodedQuestionMark: false
+            allowEncodedHash: false
+          maxHeaderBytes:  # @schema type:[integer, null]; minimum:0
+          sanitizePath:  # @schema type:[boolean, null]
+        http3:
+          enabled: false
+          advertisedPort:  # @schema type:[integer, null]; minimum:0
+        forwardedHeaders:
+            # -- Trust forwarded headers information (X-Forwarded-*).
+          trustedIPs: []
+          insecure: false
+        proxyProtocol:
+          # -- Enable the Proxy Protocol header parsing for the entry point
+          trustedIPs: []
+          insecure: false
+        transport:
+          respondingTimeouts:
+            readTimeout:   # @schema type:[string, integer, null]
+            writeTimeout:  # @schema type:[string, integer, null]
+            idleTimeout:   # @schema type:[string, integer, null]
+          lifeCycle:
+            requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
+            graceTimeOut:               # @schema type:[string, integer, null]
+          keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
+          keepAliveMaxTime:             # @schema type:[string, integer, null]
+        observability:  # @schema additionalProperties: false
+          # -- Enables metrics for this entryPoint.
+          metrics:  # @schema type:[boolean, null]; default: true
+          # -- Enables access-logs for this entryPoint.
+          accessLogs:  # @schema type:[boolean, null]; default: true
+          # -- Enables tracing for this entryPoint.
+          tracing:  # @schema type:[boolean, null]; default: true
+          # -- Defines the tracing verbosity level for this entryPoint.
+          traceVerbosity:  # @schema enum:[minimal, detailed, null]; type:[string, null]; default: minimal

@@ -1,0 +1,25 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: market-team
+  namespace: shop
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  url: https://github.com/opipenbe/market-team-project
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: market-team
+  namespace: shop
+spec:
+  interval: 1m0s
+  path: ./
+  prune: false
+  serviceAccountName: market-team
+  sourceRef:
+    kind: GitRepository
+    name: market-team

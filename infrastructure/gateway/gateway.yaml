@@ -1,0 +1,70 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+  namespace: traefik
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-cert
+  namespace: traefik
+spec:
+  secretName: selfsigned-cert-tls
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    organizations:
+      - My Organization
+  commonName: "*.pipenberg.eu"
+  dnsNames:
+    - "*.pipenberg.eu"
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: infra-gateway
+  namespace: traefik
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - name: web
+      protocol: HTTP
+      port: 9000
+      hostname: "*.pipenberg.eu"
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                  - policy-reporter
+                  - nextcloud
+                  - shop
+    - name: websecure
+      protocol: HTTPS
+      port: 9443
+      hostname: "*.pipenberg.eu"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          -  name: selfsigned-cert-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                  - policy-reporter
+                  - nextcloud
+                  - shop

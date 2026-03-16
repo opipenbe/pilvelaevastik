@@ -1,0 +1,30 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: longhorn-manager-prometheus
+  namespace: longhorn-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app: longhorn-manager
+  ingress:
+  - fromEntities:
+    - remote-node
+    toPorts:
+    - ports:
+      - port: "9500"
+        protocol: TCP
+#---
+#apiVersion: "cilium.io/v2"
+#kind: CiliumNetworkPolicy
+#metadata:
+#  name: allow-k8s-host-access-to-longhorn-ui
+#  namespace: longhorn-system
+#spec:
+#  endpointSelector:
+#    matchLabels:
+#      app: longhorn-ui
+#  ingress:
+#  - fromEntities:
+#    - remote-node

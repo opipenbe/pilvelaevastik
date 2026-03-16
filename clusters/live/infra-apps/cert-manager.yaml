@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cilium
+  interval: 720m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  serviceAccountName: helm-controller
+  path: ./infrastructure/cert-manager
+  prune: true
+  wait: true
+  timeout: 10m

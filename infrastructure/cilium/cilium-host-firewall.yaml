@@ -1,0 +1,159 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: management-network-ingress
+specs:
+  - description: Allow ANY access from management network
+    nodeSelector:
+      matchLabels: {}
+    ingress:
+      - fromCIDR:
+          - ${MGMT_NETWORK}
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: node-policy
+specs:
+  - description: Filter ingress traffic to control-plane nodes
+    nodeSelector:
+      matchLabels:
+        node-role.kubernetes.io/control-plane: ""
+    ingress:
+      # Allow etcd access from registered nodes
+      - fromEntities:
+          - host
+          - remote-node
+        toPorts:
+          - ports:
+              - port: "2379"
+                protocol: TCP
+              - port: "2380"
+                protocol: TCP
+      # Allow kube-apiserver access from the cluster
+      - fromEntities:
+          - cluster
+        toPorts:
+          - ports:
+              - port: "6443"
+                protocol: TCP
+      # Allow kube-apiserver access from the cluster subnet, which is used during bootstrapping before nodes are registered and Cilium can use entity-based rules. This rule can be disabled after bootstrapping.
+      - fromCIDR:
+          - ${K8S_HOST_NETWORK}
+        toPorts:
+          - ports:
+              - port: "6443"
+                protocol: TCP
+  - description: Filter ingress traffic to infra nodes
+    nodeSelector:
+      matchLabels:
+        node-role.kubernetes.io/infra: ""
+    ingress:
+      # Allow BGP from the router
+      - fromCIDR:
+          - "${CILIUM_PEER_ROUTER_IP}/32"
+        toPorts:
+          - ports:
+              - port: "179"
+                protocol: TCP
+  - description: all-nodes-ingress
+    nodeSelector:
+      matchLabels: {}
+    # Allow egress by default from all nodes
+    egress:
+      - toEntities:
+          - all
+    # Filter ingress traffic to all nodes
+    ingress:
+      # Allow talos apid, trustd access between nodes. During bootsrapping, the nodes are not registered yet, so Cilium cannot use entity-based rules. This rule can be disabled after bootstrapping.
+      - fromCIDR:
+          - ${K8S_HOST_NETWORK}
+        toPorts:
+          - ports:
+              - port: "50000"
+                protocol: TCP
+              - port: "50001"
+                protocol: TCP
+      # Allow talos apid, trustd access between nodes. After bootstrapping, the nodes are registered and Cilium can use entity-based rules.
+      - fromEntities:
+          - host
+          - remote-node
+        toPorts:
+          - ports:
+              - port: "50000"
+                protocol: TCP
+              - port: "50001"
+                protocol: TCP
+      # Allow kubelet access from host and kube-apiserver
+      - fromEntities:
+          - host
+          - kube-apiserver
+        toPorts:
+          - ports:
+              - port: "10250"
+                protocol: TCP
+      # Allow kubelet, cilium-health monitoring, hubble, talos apid access from the kube-system namespace
+      - fromEndpoints:
+          - matchLabels:
+              k8s:io.kubernetes.pod.namespace: kube-system
+        toPorts:
+          - ports:
+              - port: "10250"
+                protocol: TCP
+              - port: "50000"
+                protocol: TCP
+              - port: "4240"
+                protocol: TCP
+              - port: "4244"
+                protocol: TCP
+              - port: "4245"
+                protocol: TCP
+      # Allow kubelet, cilium-health monitoring, hubble, talos apid access from registered nodes
+      - fromEntities:
+          - host
+          - remote-node
+        toPorts:
+          - ports:
+              - port: "4240"
+                protocol: TCP
+              - port: "4244"
+                protocol: TCP
+              - port: "4245"
+                protocol: TCP
+      # Allow monitoring: ICMP echo requests
+      - fromEntities:
+          - host
+          - remote-node
+        icmps:
+          - fields:
+              - family: IPv4
+                type: EchoRequest
+  - description: >
+      Allow egress to kube-apiserver from all namespaces except system namespaces.
+      Workload namespaces use default-deny policies, which would otherwise block
+      kube-apiserver access. System namespaces are excluded because they do not
+      use default-deny policies.
+    endpointSelector:
+      matchExpressions:
+        - key: k8s:io.kubernetes.pod.namespace
+          operator: NotIn
+          values:
+            - flux-system
+            - istio-system
+            - kube-system
+            - longhorn-system
+            - velero
+    egress:
+      - toEntities:
+          - kube-apiserver
+      - toEndpoints:
+          - matchLabels:
+              k8s:io.kubernetes.pod.namespace: kube-system
+              k8s-app: kube-dns
+        toPorts:
+          - ports:
+              - port: "53"
+                protocol: UDP
+              - port: "53"
+                protocol: TCP

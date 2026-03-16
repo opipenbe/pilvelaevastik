@@ -1,0 +1,119 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/warn: privileged
+  name: longhorn-system
+---
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: longhorn-encrypted
+parameters:
+  backupTargetName: default
+  dataEngine: v1
+  dataLocality: disabled
+  disableRevisionCounter: "true"
+  fromBackup: ""
+  fsType: ext4
+  numberOfReplicas: "2"
+  staleReplicaTimeout: "30"
+  unmapMarkSnapChainRemoved: ignored
+  encrypted: "true"
+  csi.storage.k8s.io/provisioner-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/provisioner-secret-namespace: "longhorn-system"
+  csi.storage.k8s.io/node-publish-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/node-publish-secret-namespace: "longhorn-system"
+  csi.storage.k8s.io/node-stage-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/node-stage-secret-namespace: "longhorn-system"
+  csi.storage.k8s.io/node-expand-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/node-expand-secret-namespace: "longhorn-system"
+provisioner: driver.longhorn.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: backup-secret
+    namespace: longhorn-system
+type: Opaque
+stringData:
+    AWS_ENDPOINTS: ENC[AES256_GCM,data:ss/OpdjqevQVw0pU95/4MINujJUdZziarxme,iv:oCTc7gc5SGbPes38Yrdf80/etdKoSFXcvsaRiWnWaYo=,tag:T37NJgmsQUnjGIBxuTjTIw==,type:str]
+    AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:ClOdBAjkA0tKpYn036VAzOulGxDybRJczCE=,iv:HNBq/0p+xKi+6rQYxs0M64N+MQzc+AREqeNf1f80C7I=,tag:5NBw1W0oX/21RyCJN+Axbw==,type:str]
+    AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:YAYCGWtHKVUoFmNRAeioeMVZ6VWFgvleJYNvkszitJ7oS8b04CtSHYTrEXx89BN5watxdQT9h0FJ/Slk5klscA==,iv:i0WG6bX9inZfuId+qG0G1PNjDTUSDAsLb7bIsbHmM8Q=,tag:2cc4eME23ZyX9lvMsQSh/g==,type:str]
+sops:
+    age:
+        - recipient: age14x7z7kqzkfhk7q3hx9ny86zjp52q5jn36n3jfxeavd34xjxl9smsk0xxu7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIQ3RoNXc3aEhPWU1Ldjdz
+            aU5pNDh4RWVjT0ZYT3FXK1ZWZnNaUHorQ0dnCmRkU3pyRWhuSjl3ZkI4ZCtUc0g2
+            ejZhY3FtbWxXcmQ1TlRidmhMUXRIS0EKLS0tIE1BNTRHOVA1ak1hMzlISm9HWVFK
+            RGtid0dGdEV0MkprdXR1eHhqVGV0UkUKdQzN9XLA040lRnAt9OfNljHFyB7lx2tJ
+            CisQu+KZWfooIlHLwSOwmGrnu8JeZVkQ2Nbf/g0EKNjx+ongvuIvJA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-03-16T13:01:07Z"
+    mac: ENC[AES256_GCM,data:NP4R1045871NbFd1LpMsqYN6k1CTVHYK0kVYJFS2F1x15qmQqz2DfVj4RxqoPvP89LNYhHj+BXcduyWVC/4/Fzk0wTl9f2DFNdWq6VFyGRVGpzvbrF3bNIDovfj65a+VN8294UuHNMK3Rc2zYiMDmH2oPkdbMdCbnjV5ShhD/LM=,iv:gg4fQlQueO8BUxbmX+EnskdsDkh3+uGyPElvV/RcLFs=,tag:u4/uSaiH+sWhaNzxWWS+tw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: longhorn-grpc-tls
+    namespace: longhorn-system
+type: kubernetes.io/tls
+data:
+    ca.crt: ENC[AES256_GCM,data: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,iv:oQCaKj2dVVtDcCMKEDDbCX1CAnc23nim/WhawXJRo2I=,tag:DOH0RPwZd27otxgsRti8eg==,type:str]
+    tls.crt: ENC[AES256_GCM,data:TMuAnxlHqHnLL1S74wQt7RBLesxRcNyjCpI8dzIztD+/BACHFR8g7bQPx5qK0xxk5vYrbK953MvBCtzUyxQpZmf1pi4wlZGcYY9sCo5b+gNxVgkKn8H7CG7bE41sJsSURYPQ05Y2/bmB6Ke70wIhfgYi1l/MxSXcG52YyZtl92qk7N+cXCs7e+AL1xG2QeLda9aXpItyw3OwASRS1a1LG23jHvF5ccSetN6H4vPuckBkK6PK73/+MNQpeR7QpZpDpEkV8Fsvi4KCVINDkMzKhyBt1fsNEudDj7+zMxQMZFJd6xSMKSC5NCWUwdpDFMGqctwXLjoeyL1muL8LIaK/5M4LNX3AwlMqpaNxyvVpPdoakSm0MAbDb6rlQ9vmWpfgUPzmLnzlrwq24EHZLxdw41wrSfPUopXevZl947yghgIeO6n++4b1pXyeQYsmHgdmj1SZOPzULCSasCBPOs0e/WSYu/B1thWiOTCs1tX0KvVZbINFjKRvb1v2KNeGHwS+AnxwC3tSlvt0BF4l7DBG1hDAdCq6xUeXo0h7/Uxjtx6v91NsqFHcHavggxJtVyz1L1iz2Sum6tRzDjFhpWAvpfjatPUIMhdV3HIme1hgAkj0MN5NOTzl1b0KTRChSlY3Jrk91FbQEIAws6QRpOyEx7BU1goPUO8Luw509SteZT9KF7F+aPuq5hSCljm1Kl4pZCcWLOFa4x59E/XZUqmn3bVnjCEhodgjWecugSUKQ5L9FelHXiQZIUwDpfpJTz96Sx/vd3gigrotivvwLMhBe2ZVevUEWx1EJ2eWyhMkQcIXyrde82GU55+1VuXzUACOzLebpewsTE/ISX4QrByVnlcLL4rx6U/BbH4Z0LzS+1I1EwhsEk5FcR0CDJbOnvJDPEDdsie/FhbzCBF05rETNDqD+tALtVYXaGcvHkodH0M3XBKvdXpQtdsSuYkJeh2VK81+lOHPVTAL3GaMFBs20OdoQq9ny9GcVE6KJf3oJMLxXxsIRcmt6Y9YKLh7AjL3/RCFV2tedrUPdqvcVr1C/8FJMX8nqxokkzbkbE0dZSG0KVV+Q2q1L/Y4i2cXJkGBUq8EgOmcQUHdVT0JBe6d21YzHwTeLq0LrFw28n/KrPu32xByHwGuauNnBpIeDBr7xkWBSsNlePrVxPrRf57KMp6SoS1Pqh+rmAxAmtQbLdaneqig2YCkwNmD7bdMutJwGj3/0PJl0dXzyoy67WKdAGA6SUTsDmpeJSGaS9gYMFPUpqZk8DrRn7pus60OUQ12bH1e01OW9HmWc6+CjL2+VXzL5SvHjqpKZfwVsb2yfeChn6ZyjhldzHngefqF5ZCDb8ykGhTps4QQrUWXXPRmGdV0ALz85zcOvHH1pkS+9Csdcn1SUpoqoJtnSRWFHL7GYsGN5JGNhK8ppac/JbsbEin1pkbxGeUIsaLwAHBg6B5Oz7uu8Motmf4N7wfSQ5g9nKU9S5nZS3SNwia3Kf9U0GuahbKrKsBhCCP9N58LUviU+rUnjFtbGSnF03NB/xPA26jWU3NaZaR7LdHaRffJeDmBMl8u3KLB0dTlghozz/u7fMFtLZfOxEW6ad8fmeXugVuIr+kWvFdP6AhDSJr4GuDeyyVBERDWIsLZRoL27ptorqDp3W0QiKlNvs4HZOCQt6B8rGGRtZlov0xfArsuwnjWG/I88dJS088ODqSBue81WEl3P3damuhQWvvj73h+0K4zB7PKI0JcUSvFQxQlq4Sq/m26rw5njKmfK25CAOgfnJWrsiICfCaZts/BV9ivfXouej4yUpN4W1DJiJSkRcsmDR+Lxt7m9mrdDJSiQZOejBKFDbBC1mbKz1hGBWYoM4e9q2ei3+SB/Y+EpXBEvjK+GDACX64GsTFE4ozpDgU/y5wOmZZI9q1Xj8wGhfmh3VHsuxRw0trNbZtr6G/WvyyzS2ddhloewYcjlaSuUb3rkagrUX1ztdgihGnGh/MiksThuemYGsr/EPRzJTaD23b4X9+NQfucTErOklJ/s5LN4sBo+IkfWU2mmde3ucY0mtSfp7WO6XPwBKwIAOlBR0wxTEd34riUoZfifavyXFzJ/gpCSKDyz3zaY+Q5OAuZLSKTdybzJ41E9VTswUxNAr+vHq4BVSG4V9mjVNRsYLSoTWmT/oqJJ4U65G1X5w8CXjpH1JCsRfo9EHYRL8CWGmLBaEXvzaPUza9Yd+oZZMSYai3zNomnA/ZolhwHndGOK3YT5XrUl5YhX1gLlBa0NfwFwYnKBTTWpmPRLGGLG85ebJ/z2pNzy7NtSTLH9jfc9f14He5srCVysorOFl2+Ww4Y4w8Uvdj+gctrP5csnMS7fX0c2UXG8o1KJH+zyrMA3N/gHUJD7wWqqoAFp85NKtZHofjvJwDXklVBuMay9NWJhMgMg41rEOqhemZI2fapVE4uDh1MR4aDEfUHSesgs2m1mFeJhTWHwJOKWoA5xgpeUFHfrZKJ9rpnBfmee0WJjjmLjk5A05aAqThNc4vR6razi24Z9CGnqAddPvCv5cp9DyOGo3sz+PgEOugksh7x0b13lVZ/DNlghEH0s6IJYRyqxgM0JXftnpNO7dzPhzH9KY8Zx7LdZxH7+8KEQiileND25uH+qr6Ok9mf3AzKGNynwkVNWcEi8Ycci0VE2rHgCkXzow70hLMyDpG2z0/nCqP/ajyiuqGwdLD20TDeB1IdOlSuP/pmQKoBTsAlGtsWMqIoGgoGhfgK2S9gV/rWwpYCeGrHpJldvQVjcr03mU7pM545iHcitb3SlWEA4/pKRT4tbAD6EMJAyhh0vi7NuqLPv3aOhG0IZSe62J6mzdgVFPQGVGPye3Wrplr1zrQ9gmgYeJvw+EnitmUELfDmEgi1Fa/j4TdRVHk5n10pLFKT3guBvgxsrRzYSWd3jSOY4Snv2Zo80lo+z/86ZcCG/i2OhlWMpmPi76Emd0ezz1YjNIYepHaFRkDDcOg1ecxQ+ep6BAI8Q8/pduwBoL36z76CmdBzvr/64dufZHV+mstXd8cZb1lvnA6RQSC3yM614M+ENxxJ/HyMZaq0HIdx7V5CdK0+Mh/JG7hM3Zn8uhY2OqfIa16CGEBhb2v+MD0uHi7FQvoJv9Y8Chqm59rav5oN03OqOyLp+d+j0Lvl3pd9OfUxwBJ4KU916+iZPmVuWM/4R7dbi66uuxY=,iv:jKMv1KQ23Xs9u36blYWg3gfa1PF4ONO7zKkg32iQBbc=,tag:pjEv4rlStNmlIiEH9Jcvhw==,type:str]
+    tls.key: ENC[AES256_GCM,data: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,iv:5WDomSdqBnU5HXpAW96KXj8kgdeH05+cZeQUuJx6Da0=,tag:C40NZyueSb2DPZdyiREAZw==,type:str]
+sops:
+    age:
+        - recipient: age14x7z7kqzkfhk7q3hx9ny86zjp52q5jn36n3jfxeavd34xjxl9smsk0xxu7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIQ3RoNXc3aEhPWU1Ldjdz
+            aU5pNDh4RWVjT0ZYT3FXK1ZWZnNaUHorQ0dnCmRkU3pyRWhuSjl3ZkI4ZCtUc0g2
+            ejZhY3FtbWxXcmQ1TlRidmhMUXRIS0EKLS0tIE1BNTRHOVA1ak1hMzlISm9HWVFK
+            RGtid0dGdEV0MkprdXR1eHhqVGV0UkUKdQzN9XLA040lRnAt9OfNljHFyB7lx2tJ
+            CisQu+KZWfooIlHLwSOwmGrnu8JeZVkQ2Nbf/g0EKNjx+ongvuIvJA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-03-16T13:01:07Z"
+    mac: ENC[AES256_GCM,data:NP4R1045871NbFd1LpMsqYN6k1CTVHYK0kVYJFS2F1x15qmQqz2DfVj4RxqoPvP89LNYhHj+BXcduyWVC/4/Fzk0wTl9f2DFNdWq6VFyGRVGpzvbrF3bNIDovfj65a+VN8294UuHNMK3Rc2zYiMDmH2oPkdbMdCbnjV5ShhD/LM=,iv:gg4fQlQueO8BUxbmX+EnskdsDkh3+uGyPElvV/RcLFs=,tag:u4/uSaiH+sWhaNzxWWS+tw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: longhorn-crypto
+    namespace: longhorn-system
+stringData:
+    CRYPTO_KEY_VALUE: ENC[AES256_GCM,data:Xx48jhkYqyxA8LaghanXfaCL288SJq+cJu8dJRugQqIbhGBkHk3tJGoa1g==,iv:agmL1h01iQ6WPnjXfe9stlinBmXnHK8xh2T/0OfUu/Q=,tag:BgDq4nQAI6BEP1wcjQcacQ==,type:str]
+    CRYPTO_KEY_PROVIDER: ENC[AES256_GCM,data:4t2CtQw3,iv:5wtF8QBeDXtgHoeJ5/rmnRK0SDLE7EvEYlVJb+A6IQQ=,tag:lz4FRrFaEQsWTD+ZqxQTvA==,type:str]
+    CRYPTO_KEY_CIPHER: ENC[AES256_GCM,data:cvYsTRpYFALZ0k8nXFZA,iv:YceAxvQrhG+rBIs3NnjNd2EqhB4X/qMtfvOlXqprIp4=,tag:8cW0OzR/whrMAQ6zbJHdrw==,type:str]
+    CRYPTO_KEY_HASH: ENC[AES256_GCM,data:LbkZsJCO,iv:w9hDMk3vpz+mSYq0eT/CZuxfG9AtW4U3V5CCpHuH7iI=,tag:WcMI35hj2Skp/jS0fpDdgg==,type:str]
+    CRYPTO_KEY_SIZE: ENC[AES256_GCM,data:5Z1e,iv:fQXGDMQwWfnYCrIBmNrWOeU7cZpX5n1FQipKf6dj0ng=,tag:PVIxWDjnxWIF1upq9qW5WQ==,type:str]
+    CRYPTO_PBKDF: ENC[AES256_GCM,data:Qym8YC30rg==,iv:a3s0I2r7dYvxxh5KHqOHmdElD46NQMJLpRLxe9YRzFE=,tag:+onf+mnn+okdaJn5Dajcqg==,type:str]
+sops:
+    age:
+        - recipient: age14x7z7kqzkfhk7q3hx9ny86zjp52q5jn36n3jfxeavd34xjxl9smsk0xxu7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIQ3RoNXc3aEhPWU1Ldjdz
+            aU5pNDh4RWVjT0ZYT3FXK1ZWZnNaUHorQ0dnCmRkU3pyRWhuSjl3ZkI4ZCtUc0g2
+            ejZhY3FtbWxXcmQ1TlRidmhMUXRIS0EKLS0tIE1BNTRHOVA1ak1hMzlISm9HWVFK
+            RGtid0dGdEV0MkprdXR1eHhqVGV0UkUKdQzN9XLA040lRnAt9OfNljHFyB7lx2tJ
+            CisQu+KZWfooIlHLwSOwmGrnu8JeZVkQ2Nbf/g0EKNjx+ongvuIvJA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-03-16T13:01:07Z"
+    mac: ENC[AES256_GCM,data:NP4R1045871NbFd1LpMsqYN6k1CTVHYK0kVYJFS2F1x15qmQqz2DfVj4RxqoPvP89LNYhHj+BXcduyWVC/4/Fzk0wTl9f2DFNdWq6VFyGRVGpzvbrF3bNIDovfj65a+VN8294UuHNMK3Rc2zYiMDmH2oPkdbMdCbnjV5ShhD/LM=,iv:gg4fQlQueO8BUxbmX+EnskdsDkh3+uGyPElvV/RcLFs=,tag:u4/uSaiH+sWhaNzxWWS+tw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2

@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-snapshotter
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: longhorn
+  interval: 720m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  serviceAccountName: kustomize-controller
+  path: ./infrastructure/external-snapshotter
+  prune: true
+  wait: true
+  timeout: 10m

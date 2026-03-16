@@ -1,0 +1,23 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: cloud-team
+  namespace: nextcloud
+spec:
+  interval: 1m
+  url: https://github.com/opipenbe/cloud-team-project
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloud-team
+  namespace: nextcloud
+spec:
+  serviceAccountName: cloud-team
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: cloud-team
+  prune: true

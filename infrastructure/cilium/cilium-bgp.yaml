@@ -1,0 +1,66 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "traefik-lb-pool"
+spec:
+  blocks:
+  - cidr: "30.0.0.1/32"
+  serviceSelector:
+    matchLabels:
+      "io.kubernetes.service.namespace": "traefik"
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPAdvertisement
+metadata:
+  name: bgp-advertisements
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: "Service"
+      service:
+        addresses:
+          - LoadBalancerIP
+      selector:
+        matchLabels:
+          "io.kubernetes.service.namespace": "traefik"
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: cilium-bgp
+spec:
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/infra: ""
+  bgpInstances:
+  - name: "instance-${CILIUM_PEER_ROUTER_ASN}"
+    localPort: 179
+    localASN: 64513
+    peers:
+    - name: "peer-${CILIUM_PEER_ROUTER_ASN}"
+      peerASN: "${CILIUM_PEER_ROUTER_ASN}"
+      peerAddress: "${CILIUM_PEER_ROUTER_IP}"
+      peerConfigRef:
+        name: "cilium-peer"
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPPeerConfig
+metadata:
+  name: cilium-peer
+spec:
+  authSecretRef: cilium-bgp-auth-secret
+  timers:
+    holdTimeSeconds: 9
+    keepAliveTimeSeconds: 3
+  ebgpMultihop: 1
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: "bgp"

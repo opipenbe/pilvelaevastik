@@ -1,0 +1,122 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/audit-version: latest
+    pod-security.kubernetes.io/warn: privileged
+    pod-security.kubernetes.io/warn-version: latest
+  name: velero
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: velero
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://vmware-tanzu.github.io/helm-charts
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: velero-s3-credentials
+    namespace: velero
+type: Opaque
+stringData:
+    cloud: ENC[AES256_GCM,data:jAfVxCZiuHzHhb8kPALeFRlJiEBAWSM+XHv4JtzSMEZq9peFR+RSOu2yny9ndsyR6v1nsfGJuBPSQ65woRtj1RP27ksio3n5BahkSremluEAXDjrDGhC20tmunTG5u0/AX4mvprG21TV2KmBmU9rV7I53RZGNqnvag5dB1WRtDSafp818iTi/or6UKHt,iv:RlXj3Ozq02uGP5WfijzwhPuwZ6BVcZWNZu1pV7PqgFs=,tag:vqEYrhNQqIlkJe87Y+o7iA==,type:str]
+sops:
+    age:
+        - recipient: age14x7z7kqzkfhk7q3hx9ny86zjp52q5jn36n3jfxeavd34xjxl9smsk0xxu7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPV2lhdThrTitLZmthVFVS
+            ZGo0ZDNSM3pUWjJnMGdxb0xBeEUzMGZ5UzBFCnpXc213Y2Fua1FlazVKdkhlNDBi
+            NzJBR1ZaTldGZTdPTHo0UnFSSDlYRnMKLS0tIHpzNU9URTA1NUZkRldOKzVJODFU
+            UGY5cU1kWHlkUDJQY0xYcFlQNnljZXcKRPh5IjxqkzswXq7DsUiTwRYrZ0GJRf+k
+            /O6G7EOrsMX0BrBfZnnjWF52EKWaabxNjyyQXAKlvtHEl/q70DeB2Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-03-16T16:30:34Z"
+    mac: ENC[AES256_GCM,data:2t8nNSv3Uc1GSuLBHlOKDXb6CbxC4ZxX92fiSQBFaWKjoQiImK71m/vq6jv14q/dVxxh2YdAdW/vEssPHEBwR/M6Mt/1AYXnQGRUSmeGm3btDy5NiaPtMgwnziSp46O19yVM2Gy3ukTK8UvEaP000RoQGh8sNbjdlKOMo448v3s=,iv:+ckv4ZJJMBDBKPTtcyNipz5L8pq2ynY3cmg6YdL6qYw=,tag:zePs8rO8n0lj55933FK1/Q==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: flux-system
+spec:
+  serviceAccountName: helm-controller
+  targetNamespace: velero
+  releaseName: velero
+  chart:
+    spec:
+      chart: velero
+      version: "12.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: velero
+        namespace: flux-system
+  interval: 1m
+  timeout: 10m
+  values:
+    nodeSelector:
+        node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.13.1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    configuration:
+      features: EnableCSI
+      backupStorageLocation:
+        - name: default
+          provider: aws
+          bucket: tclu-velero
+          default: true
+          accessMode: ReadWrite
+          config:
+            region: garage
+            s3ForcePathStyle: "true"
+            s3Url: https://s3.pipenberg.eu:443
+      volumeSnapshotLocation:
+        - name: default
+          provider: aws
+          config:
+            region: garage
+    credentials:
+      useSecret: true
+      existingSecret: velero-s3-credentials
+    snapshotsEnabled: true
+    backupsEnabled: true
+    schedules:
+      daily-backup-3-days:
+        disabled: false
+        labels:
+          schedule: daily
+          type: full
+        schedule: "02 24 * * *"
+        useOwnerReferencesInBackup: false
+        paused: false
+        skipImmediately: false
+        template:
+          includedNamespaces:
+          - '*'
+          excludedNamespaces:
+          - flux-system
+          - istio-system
+          - kube-system
+          - longhorn-system
+          - velero
+          ttl: "72h"
+          storageLocation: default

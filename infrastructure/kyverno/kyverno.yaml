@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: baseline
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/warn: baseline
+  name: kyverno
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kyverno
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://kyverno.github.io/kyverno/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno
+  namespace: flux-system
+spec:
+  serviceAccountName: kustomize-controller
+  targetNamespace: kyverno
+  releaseName: kyverno
+  chart:
+    spec:
+      chart: kyverno
+      version: "3.7.1"
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+        namespace: flux-system
+  uninstall:
+    disableHooks: true
+  interval: 1m
+  timeout: 15m
+  install:
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 1m
+  values:
+    networkPolicy:
+      
+    admissionController:
+      networkPolicy:
+        enabled: true
+      replicas: 3
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      tolerations:
+        - key: node-role.kubernetes.io/infra
+          operator: Exists
+          effect: NoSchedule
+    backgroundController:
+      networkPolicy:
+        enabled: true
+      replicas: 3
+      nodeSelector:
+      node-role.kubernetes.io/infra: ""
+      tolerations:
+        - key: node-role.kubernetes.io/infra
+          operator: Exists
+          effect: NoSchedule
+    cleanupController:
+      networkPolicy:
+        enabled: true
+      replicas: 3
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      tolerations:
+        - key: node-role.kubernetes.io/infra
+          operator: Exists
+          effect: NoSchedule
+    reportsController:
+      networkPolicy:
+        enabled: true 
+      replicas: 3
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      tolerations:
+        - key: node-role.kubernetes.io/infra
+          operator: Exists
+          effect: NoSchedule
+    openreports:
+      enabled: true
+      installCrds: true
+    features:
+      backgroundScan:
+        enabled: true
+        backgroundScanInterval: 1h

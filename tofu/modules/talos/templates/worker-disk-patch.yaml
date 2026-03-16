@@ -1,0 +1,14 @@
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn # name is used to identify the volume /var/mnt/<name>
+provisioning:
+  diskSelector:
+    match: '!system_disk'
+  grow: true
+  maxSize: ${data_disk1_size}MiB
+  #minSize: 100MiB
+# in case of single disk
+#apiVersion: v1alpha1
+#kind: UserVolumeConfig
+#name: longhorn # name is used to identify the volume /var/mnt/<name>
+#volumeType: directory

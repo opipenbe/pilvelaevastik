@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base/cloud-team
+  - ../base/market-team
+patches:
+  - path: cloud-team-patch.yaml
+  - path: market-team-patch.yaml
