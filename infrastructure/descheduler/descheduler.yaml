@@ -48,6 +48,13 @@ spec:
               - "Pending"
               - "PodInitializing"
               - "Running"
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
           plugins:
             deschedule:
               enabled:
