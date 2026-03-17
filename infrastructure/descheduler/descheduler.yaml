@@ -37,17 +37,18 @@ spec:
       - key: node-role.kubernetes.io/infra
         operator: Exists
         effect: NoSchedule
-    profiles:
-      - name: restart-pods
-        pluginConfig:
-        - name: "PodLifeTime"
-          args:
-            maxPodLifeTimeSeconds: 43200
-            states:
-            - "Pending"
-            - "PodInitializing"
-            - "Running"
-        plugins:
-          deschedule:
-            enabled:
-              - "PodLifeTime"
+    deschedulerPolicy:
+      profiles:
+        - name: restart-pods
+          pluginConfig:
+          - name: "PodLifeTime"
+            args:
+              maxPodLifeTimeSeconds: 43200
+              states:
+              - "Pending"
+              - "PodInitializing"
+              - "Running"
+          plugins:
+            deschedule:
+              enabled:
+                - "PodLifeTime"
