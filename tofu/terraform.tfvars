@@ -1,5 +1,3 @@
-# This file is managed by Ansible, manual changes will be overwritten.
-
 vms = {
   "t-cp1.pipenberg.eu" = {
     memory = "4096"
