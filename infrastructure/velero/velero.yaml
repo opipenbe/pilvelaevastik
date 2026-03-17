@@ -105,7 +105,7 @@ spec:
         labels:
           schedule: daily
           type: full
-        schedule: "02 24 * * *"
+        schedule: "02 13 * * *"
         useOwnerReferencesInBackup: false
         paused: false
         skipImmediately: false
