@@ -37,3 +37,123 @@ spec:
       - key: node-role.kubernetes.io/infra
         operator: Exists
         effect: NoSchedule
+    profiles:
+      - name: default
+        pluginConfig:
+          - name: DefaultEvictor
+            args:
+              podProtections:
+                defaultDisabled:
+                - "PodsWithLocalStorage"
+                extraEnabled:
+                - "PodsWithPVC"
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: RemoveDuplicates
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: RemovePodsHavingTooManyRestarts
+            args:
+              podRestartThreshold: 100
+              includingInitContainers: true
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: RemovePodsViolatingNodeAffinity
+            args:
+              nodeAffinityType:
+              - requiredDuringSchedulingIgnoredDuringExecution
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: RemovePodsViolatingNodeTaints
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: RemovePodsViolatingInterPodAntiAffinity
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: RemovePodsViolatingTopologySpreadConstraint
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+          - name: LowNodeUtilization
+            args:
+              thresholds:
+                cpu: 20
+                memory: 20
+                pods: 20
+              targetThresholds:
+                cpu: 50
+                memory: 50
+                pods: 50
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+        plugins:
+          balance:
+            enabled:
+              - RemoveDuplicates
+              - RemovePodsViolatingTopologySpreadConstraint
+              - LowNodeUtilization
+          deschedule:
+            enabled:
+              - RemovePodsHavingTooManyRestarts
+              - RemovePodsViolatingNodeTaints
+              - RemovePodsViolatingNodeAffinity
+              - RemovePodsViolatingInterPodAntiAffinity
+    - name: restart-pods
+      pluginConfig:
+      - name: "PodLifeTime"
+        args:
+          maxPodLifeTimeSeconds: 43200
+          states:
+          - "Pending"
+          - "PodInitializing"
+          - "Running"
+              evictableNamespaces:
+                exclude:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
+      plugins:
+        deschedule:
+          enabled:
+            - "PodLifeTime"
