@@ -157,3 +157,5 @@ specs:
                 protocol: UDP
               - port: "53"
                 protocol: TCP
+    # Default deny ingress for all workloads.
+    ingress: []
