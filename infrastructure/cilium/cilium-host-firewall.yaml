@@ -130,10 +130,11 @@ specs:
               - family: IPv4
                 type: EchoRequest
   - description: >
-      Allow egress to kube-apiserver from all namespaces except system namespaces.
+      Ingress is allowed only from nodes to the workloads for health checks and monitoring.
+      Egress is allowed to kube-apiserver from all namespaces except system namespaces.
       Workload namespaces use default-deny policies, which would otherwise block
-      kube-apiserver access. System namespaces are excluded because they do not
-      use default-deny policies.
+      kube-apiserver access.
+      System namespaces are excluded because they do not use default-deny policies.
     endpointSelector:
       matchExpressions:
         - key: k8s:io.kubernetes.pod.namespace
@@ -144,6 +145,10 @@ specs:
             - kube-system
             - longhorn-system
             - velero
+    ingress:
+    - fromEntities:
+      - host
+      - remote-node
     egress:
       - toEntities:
           - kube-apiserver
@@ -157,8 +162,4 @@ specs:
                 protocol: UDP
               - port: "53"
                 protocol: TCP
-    # Default deny ingress for all workloads.
-    ingress:
-    - fromEntities:
-      - host
-      - remote-node
+
