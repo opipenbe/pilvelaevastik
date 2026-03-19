@@ -158,4 +158,5 @@ specs:
               - port: "53"
                 protocol: TCP
     # Default deny ingress for all workloads.
-    ingress: []
+    ingress:
+    - fromEndpoints: []
