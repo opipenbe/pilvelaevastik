@@ -7,7 +7,7 @@ metadata:
     pod-security.kubernetes.io/audit: baseline
     pod-security.kubernetes.io/enforce: baseline
     pod-security.kubernetes.io/warn: baseline
-    #istio.io/dataplane-mode: ambient
+    istio.io/dataplane-mode: ambient
   name: shop
 ---
 apiVersion: v1
