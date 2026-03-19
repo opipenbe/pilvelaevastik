@@ -159,4 +159,6 @@ specs:
                 protocol: TCP
     # Default deny ingress for all workloads.
     ingress:
-    - fromEndpoints: []
+    - fromEntities:
+      - host
+      - remote-node
