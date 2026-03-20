@@ -35,3 +35,28 @@ subjects:
 - kind: ServiceAccount
   name: cloud-team
   namespace: nextcloud
+---
+apiVersion: v1
+stringData:
+    age.agekey: ENC[AES256_GCM,data:DXiRBUaV8pP4SDcOj4pUFlya8hPXtVLS1e7OVZQa0c/x+2qUCWOLasesTz8EDvVbv4w/D7Gbzzq7adUu4KP/SgRkmOBCY84nrYQ=,iv:QT/0gTZGs1dKwyvO8bRsefRjHUK2sHP3wf8rpykiROY=,tag:CZ07Z2WbowmZlKI6/IP1tg==,type:str]
+kind: Secret
+metadata:
+    name: sops-age
+    namespace: nextcloud
+type: Opaque
+sops:
+    age:
+        - recipient: age14x7z7kqzkfhk7q3hx9ny86zjp52q5jn36n3jfxeavd34xjxl9smsk0xxu7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhSWFKbFB3aUJxanR4YUky
+            YzBVcjB6U1N1VXNIRmhub1hka1k0cGZkeGlRCmFwSW83UzNWTnZ2bEZEZGhlblRO
+            ZmxnMm9nVDJUc2FOVGxkbkRPRit3bnMKLS0tIEtwNnJmUWhaZDlieTVZTU90M0wv
+            NW5aMnJSSUIwb3YvNDRsUmlzdkprUDQKOF0n5lLcMbljKgJUTIetLLT3aezFSUc6
+            c5BYzue8piEv/yKAxQIvfQe+VOJ+seYX2gSx2ucw9QPo7KyyZHpuNg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-03-20T11:09:12Z"
+    mac: ENC[AES256_GCM,data:c6oB6s5FCkIILV/ghOWXEaxn2DCJCNLZB2ttTlb3ORnR1K+5hYX2ZooyciIp5U4GORlfgVYT+yOjNrcnmwBAzTFtxW4ANH36aAz1RLSU7hXKYfaMjfpfKB7s9TIXrvEROVot9FKHe2Ox0RuCBN32bR4tFajL3CDNPxVQGg4GKbk=,iv:oqFg2SJVLZIwEnDLJxbyP8Xrl8j2h5DVBSQDmduOFhU=,tag:xorRsZRDNFoF93J4n0m/xw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
+
