@@ -7,7 +7,3 @@ resources:
 patches:
   - path: cloud-team-patch.yaml
   - path: market-team-patch.yaml
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
