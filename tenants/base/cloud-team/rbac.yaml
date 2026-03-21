@@ -76,8 +76,8 @@ spec:
     limits.memory: 8Gi
     pods: "9"
     persistentvolumeclaims: "9"
-    requests.storage: 50Gi
+    requests.storage: 100Gi
     configmaps: "20"
     secrets: "20"
-    services: "9"
+    services: "20"
     
