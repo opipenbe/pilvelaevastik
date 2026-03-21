@@ -1,3 +1,7 @@
+# Source: https://github.com/kyverno/policies/blob/main/best-practices/add-network-policy/add-network-policy.yaml
+# Author: Kyverno Project
+# License: Apache 2.0
+# Modifications: Adjusted namespace exclusion scope
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:

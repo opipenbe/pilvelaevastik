@@ -1,4 +1,7 @@
-# based on: https://github.com/fluxcd/flux2-multi-tenancy
+# Source: https://github.com/fluxcd/flux2-multi-tenancy
+# Author: Kyverno Project
+# License: Apache 2.0
+# Modifications: Modified git repository
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:

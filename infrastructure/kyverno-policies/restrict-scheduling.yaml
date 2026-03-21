@@ -1,0 +1,71 @@
+# Source: https://github.com/kyverno/policies/blob/main/other/restrict-controlplane-scheduling/restrict-controlplane-scheduling.yaml
+# Author: Kyverno Project
+# License: Apache 2.0
+# Modifications: Adjusted namespace exclusion scope, added rule for infra nodes, removed rule for master nodes (as this is now a taint for control-plane nodes in newer Kubernetes versions)
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-controlplane-scheduling
+  annotations:
+    policies.kyverno.io/title: Restrict control plane scheduling
+    policies.kyverno.io/category: Sample
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+    policies.kyverno.io/description: >-
+      Scheduling non-system Pods to control plane nodes (which run kubelet) is often undesirable
+      because it takes away resources from the control plane components and can represent
+      a possible security threat vector. This policy prevents users from setting a toleration
+      in a Pod spec which allows running on control plane nodes
+      with the taint key `node-role.kubernetes.io/master`.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: restrict-control-plane-scheduling
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: Pods may not use tolerations which schedule on control plane nodes.
+      pattern:
+        spec:
+          =(tolerations):
+            - key: "!node-role.kubernetes.io/control-plane"
+    exclude:
+      any:
+        - resources:
+            names:
+              - flux-system
+              - istio-system
+              - kyverno
+  - name: restrict-infra-node-scheduling
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: Pods may not use tolerations which schedule on infra nodes.
+      pattern:
+        spec:
+          =(tolerations):
+            - key: "!node-role.kubernetes.io/infra"
+    exclude:
+      any:
+        - resources:
+            names:
+              - cert-manager
+              - cilium-secrets
+              - flux-system
+              - istio-system
+              - kube-system
+              - kubelet-serving-cert-approver
+              - kyverno
+              - longhorn-system
+              - policy-reporter
+              - traefik
+              - trivy-adapter
+              - trivy-system
+              - velero
