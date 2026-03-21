@@ -43,8 +43,8 @@ spec:
   values:
     resources:
       limits:
-        memory: 100Mi
-        cpu: 10m
+        memory: 256Mi
+        cpu: 200m
       requests:
         memory: 75Mi
         cpu: 5m
@@ -58,8 +58,8 @@ spec:
           effect: NoSchedule
       resources:
         limits:
-          memory: 100Mi
-          cpu: 10m
+          memory: 256Mi
+          cpu: 200m
         requests:
           memory: 75Mi
           cpu: 5m
