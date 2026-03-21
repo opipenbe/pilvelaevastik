@@ -8,3 +8,4 @@ resources:
   - add-resources.yaml
   - protect-resourcequotas.yaml
   - deny-namespace-modification.yaml
+  - restrict-image-registries.yaml
