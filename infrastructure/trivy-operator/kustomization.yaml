@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
   - trivy.yaml
   - trivy-operator-values.yaml
-  - network-policies.yaml
+  #- network-policies.yaml
 
 
