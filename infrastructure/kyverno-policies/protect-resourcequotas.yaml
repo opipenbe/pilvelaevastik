@@ -28,7 +28,7 @@ spec:
           conditions:
             all:
               - key: "{{ request.userInfo.username }}"
-                operator: NotIn
+                operator: AnyNotIn
                 value:
                   - system:serviceaccount:flux-system:kustomize-controller
                   - system:serviceaccount:flux-system:helm-controller
