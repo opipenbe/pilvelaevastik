@@ -34,14 +34,14 @@ spec:
               - UPDATE
       mutate:
         foreach:
-          - list: request.object.spec.[initContainers][]
+          - list: "request.object.spec.initContainers[]"
             patchStrategicMerge:
               spec:
-                containers:
-                  - (name): "{{element.name}}"
+                initContainers:
+                  - (name): "{{ element.name }}"
                     resources:
                       requests:
-                        +(memory): 100Mi
-                        +(cpu): 100m
+                        +(memory): "100Mi"
+                        +(cpu): "100m"
                       limits:
-                        +(memory): 100Mi
+                        +(memory): "100Mi"
