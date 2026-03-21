@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: protect-resourcequotas
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: block-resourcequota-update-delete
+      match:
+        any:
+          - resources:
+              kinds:
+                - ResourceQuota
+      validate:
+        message: "ResourceQuota cannot be updated or deleted by namespace level account."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.operation }}"
+                operator: AnyIn
+                value:
+                  - UPDATE
+                  - DELETE
+      exclude:
+        any:
+          - clusterRoles:
+              - cluster-admin
