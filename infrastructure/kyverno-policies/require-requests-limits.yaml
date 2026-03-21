@@ -16,6 +16,7 @@ metadata:
 spec:
   validationFailureAction: Enforce
   background: true
+  generateExisting: true
   rules:
     - name: validate-resources
       match:
