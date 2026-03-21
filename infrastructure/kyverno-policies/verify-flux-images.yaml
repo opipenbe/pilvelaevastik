@@ -7,7 +7,7 @@ kind: ClusterPolicy
 metadata:
   name: verify-flux-images
   annotations:
-    policies.kyverno.io/category: Kyverno
+    policies.kyverno.io/category: Workload Security and Governance Policies
 spec:
   validationFailureAction: Audit
   background: false

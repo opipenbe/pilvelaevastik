@@ -3,7 +3,7 @@ kind: ClusterPolicy
 metadata:
   name: deny-namespace-modification
   annotations:
-    policies.kyverno.io/category: Kyverno
+    policies.kyverno.io/category: Workload Security and Governance Policies
 spec:
   validationFailureAction: Enforce
   background: false

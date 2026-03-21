@@ -7,7 +7,7 @@ kind: ClusterPolicy
 metadata:
   name: add-default-deny-networkpolicy
   annotations:
-    policies.kyverno.io/category: Kyverno
+    policies.kyverno.io/category: Workload Security and Governance Policies
 spec:
   generateExisting: true
   rules:
