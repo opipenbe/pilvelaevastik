@@ -9,3 +9,4 @@ resources:
   - protect-resourcequotas.yaml
   - deny-namespace-modification.yaml
   - restrict-image-registries.yaml
+  - require-pod-probes.yaml
