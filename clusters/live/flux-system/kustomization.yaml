@@ -43,4 +43,12 @@ patches:
     target:
       kind: Deployment
       name: "(kustomize-controller|helm-controller|notification-controller|image-reflector-controller|image-automation-controller|source-controller)"
-
+  # Add nodeSelector to schedule flux-system components on infra nodes
+  - patch: |
+      - op: add
+        path: /spec/template/spec/nodeSelector
+        value:
+          node-role.kubernetes.io/infra: ""
+    target:
+      kind: Deployment
+      name: "(kustomize-controller|helm-controller|notification-controller|image-reflector-controller|image-automation-controller|source-controller)"
