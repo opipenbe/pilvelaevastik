@@ -58,7 +58,7 @@ spec:
       enabled: true
     adapters:
       clusterVulnerabilityReports:
-        enabled: true
+        enabled: false
       complianceReports:
         enabled: true
       configAuditReports:
