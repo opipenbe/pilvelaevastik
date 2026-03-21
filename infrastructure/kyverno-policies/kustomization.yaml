@@ -8,4 +8,4 @@ resources:
   - add-resources.yaml
   - deny-privileged-profile.yaml
   - protect-resourcequotas.yaml
-  #- default-deny-networkpolicy.yaml
+  - deny-namespace-modification.yaml

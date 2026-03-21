@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: deny-namespace-modification
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: check-namespace-update
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              operations:
+                - UPDATE
+      validate:
+        message: "Only approved service accounts may modify Namespace information"
+        deny:
+          conditions:
+            all:
+              - key: "{{ request.userInfo.username }}"
+                operator: AnyNotIn
+                value:
+                  - system:serviceaccount:flux-system:kustomize-controller
+                  - system:serviceaccount:flux-system:helm-controller
