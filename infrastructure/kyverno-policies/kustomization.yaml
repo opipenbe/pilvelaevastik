@@ -5,4 +5,5 @@ resources:
   - restrict-scheduling.yaml
   - verify-flux-images.yaml
   - verify-git-repositories.yaml
+  - add-resources.yaml
   #- default-deny-networkpolicy.yaml
