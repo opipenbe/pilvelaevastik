@@ -30,7 +30,7 @@ spec:
       exclude:
         any:
           - resources:
-              names:
+              namespaces:
                 - flux-system
                 - istio-system
                 - kube-system

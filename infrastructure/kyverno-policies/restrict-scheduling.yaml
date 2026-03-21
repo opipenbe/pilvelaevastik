@@ -37,7 +37,7 @@ spec:
     exclude:
       any:
         - resources:
-            names:
+            namespaces:
               - kube-system
               - flux-system
               - istio-system
@@ -57,7 +57,7 @@ spec:
     exclude:
       any:
         - resources:
-            names:
+            namespaces:
               - cert-manager
               - flux-system
               - istio-system
