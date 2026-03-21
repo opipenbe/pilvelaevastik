@@ -9,6 +9,7 @@ metadata:
   annotations:
     policies.kyverno.io/title: Restrict Image Registries
     #policies.kyverno.io/category: Best Practices, EKS Best Practices
+    policies.kyverno.io/category: Kyverno
     policies.kyverno.io/severity: medium
     policies.kyverno.io/minversion: 1.6.0
     kyverno.io/kubernetes-version: "1.26"

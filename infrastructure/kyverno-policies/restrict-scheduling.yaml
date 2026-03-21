@@ -9,6 +9,7 @@ metadata:
   annotations:
     policies.kyverno.io/title: Restrict control plane scheduling
     #policies.kyverno.io/category: Sample
+    policies.kyverno.io/category: Kyverno
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/minversion: 1.6.0
     policies.kyverno.io/description: >-

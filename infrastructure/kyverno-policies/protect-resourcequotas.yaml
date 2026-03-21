@@ -2,6 +2,8 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: protect-resourcequotas
+  annotations:
+    policies.kyverno.io/category: Kyverno
 spec:
   validationFailureAction: Enforce
   background: false

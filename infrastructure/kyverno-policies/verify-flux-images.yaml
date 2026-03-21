@@ -6,6 +6,8 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: verify-flux-images
+  annotations:
+    policies.kyverno.io/category: Kyverno
 spec:
   validationFailureAction: Audit
   background: false

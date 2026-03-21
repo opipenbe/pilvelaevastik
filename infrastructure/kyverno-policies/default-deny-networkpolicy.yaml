@@ -6,6 +6,8 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: add-default-deny-networkpolicy
+  annotations:
+    policies.kyverno.io/category: Kyverno
 spec:
   generateExisting: true
   rules:

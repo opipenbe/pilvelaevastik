@@ -6,6 +6,8 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: verify-git-repositories
+  annotations:
+    policies.kyverno.io/category: Kyverno
 spec:  
   # This provides users a working example of how an admin
   # would be able to enforce git repository sources across
