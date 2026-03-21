@@ -41,6 +41,13 @@ spec:
       name: RetryOnFailure
       retryInterval: 1m
   values:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
     nodeSelector:
       node-role.kubernetes.io/infra: ""
     tolerations:

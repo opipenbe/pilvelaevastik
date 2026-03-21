@@ -41,6 +41,13 @@ spec:
       name: RetryOnFailure
       retryInterval: 1m
   values:
+    resources:
+      limits:
+        memory: 100Mi
+        cpu: 10m
+      requests:
+        memory: 75Mi
+        cpu: 5m
     ui:
       enabled: true
       nodeSelector:
@@ -49,6 +56,13 @@ spec:
         - key: node-role.kubernetes.io/infra
           operator: Exists
           effect: NoSchedule
+      resources:
+        limits:
+          memory: 100Mi
+          cpu: 10m
+        requests:
+          memory: 75Mi
+          cpu: 5m
       networkPolicy:
         enabled: true
         ingress:
