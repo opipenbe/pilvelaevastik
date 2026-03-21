@@ -43,6 +43,8 @@ kind: Secret
 metadata:
     name: sops-age
     namespace: nextcloud
+    labels:
+      toolkit.fluxcd.io/tenant: cloud-team
 type: Opaque
 sops:
     age:
@@ -59,4 +61,23 @@ sops:
     mac: ENC[AES256_GCM,data:c6oB6s5FCkIILV/ghOWXEaxn2DCJCNLZB2ttTlb3ORnR1K+5hYX2ZooyciIp5U4GORlfgVYT+yOjNrcnmwBAzTFtxW4ANH36aAz1RLSU7hXKYfaMjfpfKB7s9TIXrvEROVot9FKHe2Ox0RuCBN32bR4tFajL3CDNPxVQGg4GKbk=,iv:oqFg2SJVLZIwEnDLJxbyP8Xrl8j2h5DVBSQDmduOFhU=,tag:xorRsZRDNFoF93J4n0m/xw==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
-
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: default-quota
+  labels:
+    toolkit.fluxcd.io/tenant: cloud-team
+spec:
+  hard:
+    requests.cpu: "4"
+    limits.cpu: "4"
+    requests.memory: 8Gi
+    limits.memory: 8Gi
+    pods: "9"
+    persistentvolumeclaims: "9"
+    requests.storage: 50Gi
+    configmaps: "20"
+    secrets: "20"
+    services: "9"
+    

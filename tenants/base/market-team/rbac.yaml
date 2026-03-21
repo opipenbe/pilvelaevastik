@@ -36,3 +36,22 @@ subjects:
 - kind: ServiceAccount
   name: market-team
   namespace: shop
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: default-quota
+  labels:
+    toolkit.fluxcd.io/tenant: market-team
+spec:
+  hard:
+    requests.cpu: "4"
+    limits.cpu: "4"
+    requests.memory: 8Gi
+    limits.memory: 8Gi
+    pods: "9"
+    persistentvolumeclaims: "9"
+    requests.storage: 50Gi
+    configmaps: "20"
+    secrets: "20"
+    services: "9"
