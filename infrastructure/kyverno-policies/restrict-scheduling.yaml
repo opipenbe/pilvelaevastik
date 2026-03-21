@@ -41,6 +41,7 @@ spec:
               - kube-system
               - flux-system
               - istio-system
+              - kubelet-serving-cert-approver
               - kyverno
   - name: restrict-infra-node-scheduling
     match:

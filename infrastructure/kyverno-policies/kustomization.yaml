@@ -6,4 +6,5 @@ resources:
   - verify-flux-images.yaml
   - verify-git-repositories.yaml
   - add-resources.yaml
+  - deny-privileged-profile.yaml
   #- default-deny-networkpolicy.yaml
