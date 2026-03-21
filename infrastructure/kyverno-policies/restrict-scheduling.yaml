@@ -37,6 +37,7 @@ spec:
       any:
         - resources:
             names:
+              - kube-system
               - flux-system
               - istio-system
               - kyverno
@@ -57,7 +58,6 @@ spec:
         - resources:
             names:
               - cert-manager
-              - cilium-secrets
               - flux-system
               - istio-system
               - kube-system
