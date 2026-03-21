@@ -1,4 +1,4 @@
-# Source: https://github.com/fluxcd/flux2-multi-tenancy
+# Source: https://github.com/kyverno/policies/blob/main/flux/verify-flux-images/verify-flux-images.yaml
 # Author: Kyverno Project
 # License: Apache 2.0
 # Modifications: Modified git repository

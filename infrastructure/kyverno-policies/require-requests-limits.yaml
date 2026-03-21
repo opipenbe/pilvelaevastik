@@ -1,7 +1,7 @@
 # Source: https://github.com/kyverno/policies/blob/main/best-practices/require-pod-requests-limits/require-pod-requests-limits.yaml
 # Author: Kyverno Project
 # License: Apache 2.0
-# Modifications: Adjusted namespace exclusion scope
+# Modifications: Adjusted namespace exclusion scope, removed initContainers from validation scope
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -35,13 +35,6 @@ spec:
                     cpu: "?*"
                   limits:
                     memory: "?*"
-            #"=(initContainers)":
-            #  - resources:
-            #      requests:
-            #        memory: "?*"
-            #        cpu: "?*"
-            #      limits:
-            #        memory: "?*"
             "=(ephemeralContainers)":
               - resources:
                   requests:

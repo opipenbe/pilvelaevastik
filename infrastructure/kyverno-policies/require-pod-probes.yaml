@@ -1,6 +1,7 @@
 # Source: https://github.com/kyverno/policies/blob/main/best-practices/require-pod-requests-limits/require-pod-requests-limits.yaml
 # Author: Kyverno Project
 # License: Apache 2.0
+# Modifications: Adjusted namespace exclusion scope
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -45,3 +46,12 @@ spec:
                   - key: readinessProbe
                     operator: AllNotIn
                     value: "{{ element.keys(@)[] }}"
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
+                - velero
