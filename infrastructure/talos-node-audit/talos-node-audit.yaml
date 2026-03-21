@@ -4,102 +4,102 @@ kind: ClusterReport
 metadata:
   name: talos-node-report
 results:
-  - category: Initial Setup
-    policy: "1.1.1 Install Talos with SecureBoot enabled"
+  #- category: Initial Setup
+  - policy: "1.1.1 Install Talos with SecureBoot enabled"
     rule: SecureBoot is enabled
     result: skip
     message: "Verify with command: talosctl -n <node> get securitystate"
-  - category: Initial Setup
-    policy: "1.2.1 Encrypt System Disks with KMS or TPM methods"
+  #- category: Initial Setup
+  - policy: "1.2.1 Encrypt System Disks with KMS or TPM methods"
     rule: System disks are encrypted with KMS or TPM methods
     result: "${RULE_1_2_1_RESULT}"
-  - category: Ensure updated software is installed
-    policy: "1.3 Ensure updated software is installed"
+  #- category: Ensure updated software is installed
+  - policy: "1.3 Ensure updated software is installed"
     rule: Initial Setup
     result: skip
     message: "${RULE_1_3_RESULT}"
     scored: true
-  - category: Time Synchronization
-    policy: "2.1 Ensure NTP is configured"
+  #- category: Time Synchronization
+  - policy: "2.1 Ensure NTP is configured"
     rule: NTP is configured
     result: ${RULE_2_1_RESULT}
     scored: true
-  - category: Kubernetes
-    policy: "3.1 Control plane scheduling allows workloads to run on control plane nodes"
+  #- category: Kubernetes
+  - policy: "3.1 Control plane scheduling allows workloads to run on control plane nodes"
     rule: ControlPlane scheduling is disabled
     result: ${RULE_3_1_RESULT}
     scored: true
-  - category: Access Control
-    policy: "4.1 Ensure RBAC is enabled"
+  #- category: Access Control
+  - policy: "4.1 Ensure RBAC is enabled"
     rule: RBAC is enabled
     result: ${RULE_4_1_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.1.1 Ensure packet redirect sending is disabled"
+  #- category: Network Configuration
+  - policy: "5.1.1 Ensure packet redirect sending is disabled"
     rule: Packet redirect sending is disabled
     result: ${RULE_5_1_1_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.1 Ensure source routed packets are not accepted"
+  #- category: Network Configuration
+  - policy: "5.2.1 Ensure source routed packets are not accepted"
     rule: Source routed packets are not accepted
     result: ${RULE_5_2_1_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.2 Ensure ICMP redirects are not accepted"
+  #- category: Network Configuration
+  - policy: "5.2.2 Ensure ICMP redirects are not accepted"
     rule: ICMP redirects are not accepted
     result: ${RULE_5_2_2_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.3 Ensure secure ICMP redirects are not accepted"
+  #- category: Network Configuration
+  - policy: "5.2.3 Ensure secure ICMP redirects are not accepted"
     rule: Secure ICMP redirects are not accepted
     result: ${RULE_5_2_3_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.4 Ensure suspicious (martian) packets are logged"
+  #- category: Network Configuration
+  - policy: "5.2.4 Ensure suspicious (martian) packets are logged"
     rule: Martian packets are logged
     result: ${RULE_5_2_4_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.5 Ensure broadcast ICMP requests are ignored"
+  #- category: Network Configuration
+  - policy: "5.2.5 Ensure broadcast ICMP requests are ignored"
     rule: Broadcast ICMP requests are ignored
     result: ${RULE_5_2_5_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.6 Ensure bogus ICMP responses are ignored"
+  #- category: Network Configuration
+  - policy: "5.2.6 Ensure bogus ICMP responses are ignored"
     rule: Bogus ICMP responses are ignored
     result: ${RULE_5_2_6_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.7 Ensure TCP SYN Cookies is enabled"
+  #- category: Network Configuration
+  - policy: "5.2.7 Ensure TCP SYN Cookies is enabled"
     rule: TCP SYN Cookies is enabled
     result: ${RULE_5_2_7_RESULT}
     scored: true
-  - category: Network Configuration
-    policy: "5.2.8 Enable Reverse Path Filtering if there are only symmetrical routes"
+  #- category: Network Configuration
+  - policy: "5.2.8 Enable Reverse Path Filtering if there are only symmetrical routes"
     rule: Reverse Path Filtering is enabled
     result: ${RULE_5_2_8_RESULT}
     scored: true
-  - category: Firewall Configuration
-    policy: "5.3.1.1 Apply an appropriate control plane firewall policy"
+  #- category: Firewall Configuration
+  - policy: "5.3.1.1 Apply an appropriate control plane firewall policy"
     rule: Control plane firewall policy is applied
     result: skip
     scored: true
-  - category: Firewall Configuration
-    policy: "5.3.2.1 Apply an appropriate worker node firewall policy"
+  #- category: Firewall Configuration
+  - policy: "5.3.2.1 Apply an appropriate worker node firewall policy"
     rule: Worker node firewall policy is applied
     result: skip
     scored: true
-  - category: Firewall Configuration
-    policy: "5.4.1 Enable KubeSpan where network level encryption is required"
+  #- category: Firewall Configuration
+  - policy: "5.4.1 Enable KubeSpan where network level encryption is required"
     rule: KubeSpan is enabled
     result: skip
     scored: true
-  - category: Logging and Auditing
-    policy: "6.1.1 Ensure kernel logging is configured to send logs to a remote service"
+  #- category: Logging and Auditing
+  - policy: "6.1.1 Ensure kernel logging is configured to send logs to a remote service"
     rule: Kernel logging is configured to send logs to a remote service
     result: ${RULE_6_1_1_RESULT}
-  - category: Logging and Auditing
-    policy: "6.2.1 Ensure service logging is configured"
+  #- category: Logging and Auditing
+  - policy: "6.2.1 Ensure service logging is configured"
     rule: Service logging is configured
     result: ${RULE_6_2_1_RESULT}
 source: Talos node compliance
