@@ -6,24 +6,17 @@ spec:
   validationFailureAction: Enforce
   background: false
   rules:
-    - name: deny-resourcequota-update-delete-for-serviceaccounts
+    - name: deny-resourcequota-update-delete
       match:
         any:
           - resources:
               kinds:
                 - ResourceQuota
-              namespaces:
-                - shop
               operations:
                 - UPDATE
                 - DELETE
-      preconditions:
-        all:
-          - key: "{{ request.userInfo.username }}"
-            operator: StartsWith
-            value: "system:serviceaccount:"
       validate:
-        message: "Only approved Flux service accounts may modify or delete ResourceQuota."
+        message: "Only approved service accounts may modify or delete ResourceQuota."
         deny:
           conditions:
             all:
