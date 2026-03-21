@@ -6,23 +6,29 @@ spec:
   validationFailureAction: Enforce
   background: false
   rules:
-    - name: block-resourcequota-update-delete
+    - name: deny-resourcequota-update-delete-for-serviceaccounts
       match:
         any:
           - resources:
               kinds:
                 - ResourceQuota
+              namespaces:
+                - shop
+              operations:
+                - UPDATE
+                - DELETE
+      preconditions:
+        all:
+          - key: "{{ request.userInfo.username }}"
+            operator: StartsWith
+            value: "system:serviceaccount:"
       validate:
-        message: "ResourceQuota cannot be updated or deleted by namespace level account."
+        message: "Only approved Flux service accounts may modify or delete ResourceQuota."
         deny:
           conditions:
-            any:
-              - key: "{{ request.operation }}"
-                operator: AnyIn
+            all:
+              - key: "{{ request.userInfo.username }}"
+                operator: NotIn
                 value:
-                  - UPDATE
-                  - DELETE
-      exclude:
-        any:
-          - clusterRoles:
-              - cluster-admin
+                  - system:serviceaccount:flux-system:kustomize-controller
+                  - system:serviceaccount:flux-system:helm-controller
