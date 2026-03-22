@@ -41,8 +41,8 @@ spec:
     strategy:
       name: RetryOnFailure
       retryInterval: 1m
-  values:
-    excludeNamespaces: "kube-system,kube-public,kube-node-lease,kyverno,policy-reporter,trivy-system,trivy-adapter,longhorn-system,istio-system,flux-system"
+  #values:
+  #  excludeNamespaces: "kube-system,kube-public,kube-node-lease,kyverno,policy-reporter,trivy-system,trivy-adapter,longhorn-system,istio-system,flux-system"
   valuesFrom:
   - kind: ConfigMap
     name: trivy-operator-values
