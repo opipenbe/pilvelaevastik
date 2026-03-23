@@ -74,10 +74,11 @@ spec:
     requests.memory: 8Gi
     limits.memory: 8Gi
     pods: "20"
-    persistentvolumeclaims: "9"
-    requests.storage: 100Gi
     configmaps: "20"
     secrets: "20"
     services: "20"
-
+    requests.ephemeral-storage: 50Gi
+    limits.ephemeral-storage: 50Gi
+    requests.storage: 100Gi
+    persistentvolumeclaims: "10"
     

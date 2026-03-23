@@ -59,12 +59,12 @@ spec:
                   ephemeral-storage: "?*"
                 limits:
                   ephemeral-storage: "?*"
-    exclude:
-      any:
-        - resources:
-            namespaces:
-              - kube-system
-              - flux-system
-              - istio-system
-              - longhorn-system
-              - kyverno
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - kube-system
+                - flux-system
+                - istio-system
+                - longhorn-system
+                - kyverno
