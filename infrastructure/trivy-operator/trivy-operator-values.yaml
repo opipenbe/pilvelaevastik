@@ -678,7 +678,7 @@ data:
       specs:
         #- k8s-cis-1.11
         - k8s-cis-1.23
-        #- k8s-nsa-1.0
+        - k8s-nsa-1.0
         #- k8s-pss-baseline-0.1
         #- k8s-pss-restricted-0.1
 
