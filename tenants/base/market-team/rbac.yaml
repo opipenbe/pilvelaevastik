@@ -54,3 +54,4 @@ spec:
     configmaps: "20"
     secrets: "20"
     services: "20"
+    limits.ephemeral-storage: 30Gi
