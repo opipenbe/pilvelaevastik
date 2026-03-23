@@ -67,4 +67,4 @@ spec:
                 - flux-system
                 - istio-system
                 - longhorn-system
-                - kyverno
+                - trivy-system
