@@ -11,3 +11,4 @@ resources:
   - restrict-image-registries.yaml
   - require-pod-probes.yaml
   - disable-automount-serviceaccount-token.yaml
+  - require-emptydir-requests-limits.yaml
