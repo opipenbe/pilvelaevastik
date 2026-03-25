@@ -89,6 +89,27 @@ locals {
     for vm_name, result in local.rule_3_1_per_vm : result == "pass"
   ]) ? "pass" : "fail"
 
+  rule_3_2_per_vm = {
+    for vm_name, vm in var.vms :
+    vm_name => (
+      anytrue([
+        for patch in try(local.all_machine_configuration[vm_name].config_patches, []) :
+        anytrue([
+          for admission in try(yamldecode(patch).cluster.apiServer.admissionControl, []) :
+          try(admission.name, "") == "PodSecurity" &&
+          try(tostring(admission.configuration.defaults.enforce), "") == "restricted"
+        ])
+      ])
+      ? "pass"
+      : "fail"
+    )
+  }
+
+  rule_3_2_result = alltrue([
+    for vm_name, result in local.rule_3_2_per_vm : result == "pass"
+  ]) ? "pass" : "fail"
+
+
   rule_4_1_per_vm = {
     for vm_name, vm in var.vms :
     vm_name => (
@@ -370,6 +391,7 @@ resource "kubernetes_config_map_v1" "talos-node-audit" {
     RULE_1_3_RESULT = local.rule_1_3_result
     RULE_2_1_RESULT = local.rule_2_1_result
     RULE_3_1_RESULT = local.rule_3_1_result
+    RULE_3_2_RESULT = local.rule_3_2_result
     RULE_4_1_RESULT   = local.rule_4_1_result
     RULE_5_1_1_RESULT = local.rule_5_1_1_result
     RULE_5_2_1_RESULT = local.rule_5_2_1_result

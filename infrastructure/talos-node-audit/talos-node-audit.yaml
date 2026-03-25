@@ -29,6 +29,11 @@ results:
     rule: ControlPlane scheduling is disabled
     result: ${RULE_3_1_RESULT}
     scored: true
+  #- category: Kubernetes
+  - policy: "3.2 Ensure Pod Security Standards policy is restricted"
+    rule: Pod Security Standards policy is restricted
+    result: ${RULE_3_1_RESULT}
+    scored: true
   #- category: Access Control
   - policy: "4.1 Ensure RBAC is enabled"
     rule: RBAC is enabled
