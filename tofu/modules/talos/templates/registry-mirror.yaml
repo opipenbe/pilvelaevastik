@@ -40,3 +40,17 @@ name: reg.kyverno.io
 endpoints:
     - url: ${image_registry_mirror}/v2/proxy-reg.kyverno.io
       overridePath: true
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: us-central1-docker.pkg.dev
+endpoints:
+    - url: ${image_registry_mirror}/v2/proxy-us-central1-docker.pkg.dev
+      overridePath: true
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: mirror.gcr.io
+endpoints:
+    - url: ${image_registry_mirror}/v2/mirror.gcr.io
+      overridePath: true
