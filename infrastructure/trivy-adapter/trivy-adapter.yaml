@@ -70,4 +70,4 @@ spec:
       exposedSecretReports:
         enabled: false
       rbacAssessmentReports:
-        enabled: false
+        enabled: true
