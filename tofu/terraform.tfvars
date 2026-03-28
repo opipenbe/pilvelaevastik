@@ -247,7 +247,7 @@ k8s_version = "1.34.5"
 k8s_host_network = "172.16.90.0/24"
 mgmt_network = "172.16.88.0/24"
 ### Cilium variables ###
-cilium_version = "1.18.8"
+cilium_version = "1.18.7"
 cilium_peer_router_ip = "172.16.90.1"
 cilium_peer_router_asn = "64500"
 ### Flux variables ###
