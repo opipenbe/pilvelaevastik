@@ -49,7 +49,7 @@ spec:
     requests.cpu: "4"
     requests.memory: 8Gi
     limits.memory: 8Gi
-    pods: "20"
+    pods: "60"
     configmaps: "20"
     secrets: "20"
     services: "20"
