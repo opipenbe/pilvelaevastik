@@ -35,6 +35,7 @@ spec:
         namespace: flux-system
   interval: 1m
   values:
+    onlyViewOnlyMode: true
     cr:
       create: true
       namespace: istio-system
