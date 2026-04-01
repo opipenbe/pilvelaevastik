@@ -14,26 +14,39 @@ spec:
   policyTypes:
   - Ingress
   - Egress
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: NetworkPolicy
+#metadata:
+#  name: allow-rwx
+#  namespace: longhorn-system
+#spec:
+#  podSelector:
+#    matchLabels:
+#      longhorn.io/component: share-manager
+#  ingress:
+#  - from:
+#    - namespaceSelector:
+#        matchLabels:
+#          kubernetes.io/metadata.name: nextcloud
+#      ports:
+#      - protocol: TCP
+#        port: 2049
+#  policyTypes:
+#  - Ingress
 ---
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
 metadata:
   name: allow-rwx
   namespace: longhorn-system
 spec:
-  podSelector:
+  endpointSelector:
     matchLabels:
       longhorn.io/component: share-manager
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          kubernetes.io/metadata.name: nextcloud
-      ports:
-      - protocol: TCP
-        port: 2049
-  policyTypes:
-  - Ingress
+  - fromEntities:
+    - remote-node
 ---
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
