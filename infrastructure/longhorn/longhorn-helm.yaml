@@ -39,8 +39,8 @@ spec:
       defaultClassReplicaCount: 2
       defaultDataLocality: disabled
       dataEngine: v1
-    #networkPolicies:
-    #  enabled: yes
+    networkPolicies:
+      enabled: yes
     defaultSettings:
       createDefaultDiskLabeledNodes: true
       defaultDataPath: "/var/mnt/longhorn/"
