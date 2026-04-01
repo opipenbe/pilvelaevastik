@@ -43,8 +43,6 @@ spec:
       name: RetryOnFailure
       retryInterval: 1m
   values:
-    networkPolicy:
-      
     admissionController:
       networkPolicy:
         enabled: true
