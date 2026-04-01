@@ -39,14 +39,14 @@ hubble:
       - key: node-role.kubernetes.io/infra
         operator: Exists
         effect: NoSchedule
-  ui:
-    enabled: true
-    nodeSelector:
-      node-role.kubernetes.io/infra: ""
-    tolerations:
-      - key: node-role.kubernetes.io/infra
-        operator: Exists
-        effect: NoSchedule
+  #ui:
+  #  enabled: true
+  #  nodeSelector:
+  #    node-role.kubernetes.io/infra: ""
+  #  tolerations:
+  #    - key: node-role.kubernetes.io/infra
+  #      operator: Exists
+  #      effect: NoSchedule
 hostFirewall:
   enabled: true
 prometheus:
