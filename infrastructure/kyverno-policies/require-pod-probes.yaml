@@ -56,3 +56,4 @@ spec:
                 - kube-system
                 - longhorn-system
                 - velero
+                - kyverno
