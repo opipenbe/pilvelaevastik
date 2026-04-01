@@ -45,7 +45,7 @@ metadata:
     toolkit.fluxcd.io/tenant: market-team
 spec:
   hard:
-    #limits.cpu: "4"
+    limits.cpu: "4"
     requests.cpu: "4"
     requests.memory: 8Gi
     limits.memory: 8Gi
