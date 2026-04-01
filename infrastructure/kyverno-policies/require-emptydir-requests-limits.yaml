@@ -68,3 +68,4 @@ spec:
                 - istio-system
                 - longhorn-system
                 - trivy-system
+                - velero

@@ -57,3 +57,4 @@ spec:
                 - longhorn-system
                 - velero
                 - kyverno
+                - trivy-system
