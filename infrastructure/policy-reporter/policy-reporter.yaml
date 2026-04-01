@@ -63,20 +63,20 @@ spec:
         requests:
           memory: 75Mi
           cpu: 5m
-      networkPolicy:
-        enabled: true
-        ingress:
-          - from:
-            - namespaceSelector:
-                matchLabels:
-                  kubernetes.io/metadata.name: traefik
-            ports:
-            - protocol: TCP
-              port: 8080
-            - port: 15008
-              protocol: TCP
-        egress:
-          - {}
+      #networkPolicy:
+      #  enabled: true
+      #  ingress:
+      #    - from:
+      #      - namespaceSelector:
+      #          matchLabels:
+      #            kubernetes.io/metadata.name: traefik
+      #      ports:
+      #      - protocol: TCP
+      #        port: 8080
+      #      - port: 15008
+      #        protocol: TCP
+      #  egress:
+      #    - {}
     nodeSelector:
       node-role.kubernetes.io/infra: ""
     tolerations:

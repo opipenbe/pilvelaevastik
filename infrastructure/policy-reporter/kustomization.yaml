@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - policy-reporter.yaml
   - policy-reporter-gateway.yaml
+  - policy-reporter-ui-networpolicy.yaml
