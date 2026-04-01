@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: limit-ingress-allow-egress-all
-  namespace: longhorn-system
+  namespace: kyverno
 spec:
   podSelector: {}
   egress:
