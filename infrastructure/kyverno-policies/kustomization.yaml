@@ -12,3 +12,4 @@ resources:
   - require-pod-probes.yaml
   - disable-automount-serviceaccount-token.yaml
   - require-emptydir-requests-limits.yaml
+  - resolve-image-to-digest.yaml
