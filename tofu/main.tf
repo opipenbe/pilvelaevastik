@@ -39,6 +39,7 @@ module "fluxcd" {
   cilium_peer_router_asn = var.cilium_peer_router_asn
   k8s_host_network = var.k8s_host_network
   mgmt_network = var.mgmt_network
+  talos_k8s_cluster_vip = var.talos_k8s_cluster_vip
   depends_on = [module.cilium]
 }
 
