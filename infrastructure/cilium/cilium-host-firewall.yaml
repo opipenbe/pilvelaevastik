@@ -177,7 +177,7 @@ specs:
     endpointSelector:
       matchExpressions:
         - key: k8s:io.kubernetes.pod.namespace
-          operator: NotIn
+          operator: In
           values:
             - kube-system
     egressDeny:
