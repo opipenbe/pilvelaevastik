@@ -25,6 +25,7 @@ specs:
       - fromEntities:
           - host
           - remote-node
+          - ${CLUSTER_VIP}/32
         toPorts:
           - ports:
               - port: "2379"
@@ -142,12 +143,6 @@ specs:
     egress:
       - toEntities:
           - kube-apiserver
-        toPorts:
-          - ports:
-              - port: "6443"
-                protocol: TCP
-      - toCIDR:
-          - ${CLUSTER_VIP}/32
         toPorts:
           - ports:
               - port: "6443"
