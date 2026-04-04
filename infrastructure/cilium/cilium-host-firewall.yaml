@@ -24,15 +24,7 @@ specs:
       # Allow etcd access from registered nodes
       - fromEntities:
           - host
-          #- remote-node
-        toPorts:
-          - ports:
-              - port: "2379"
-                protocol: TCP
-              - port: "2380"
-                protocol: TCP
-      - fromCIDR:
-        - ${K8S_HOST_NETWORK}
+          - remote-node
         toPorts:
           - ports:
               - port: "2379"
