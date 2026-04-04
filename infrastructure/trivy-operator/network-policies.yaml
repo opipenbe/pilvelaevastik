@@ -3,7 +3,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-egress-443-trivy-operator
+  name: allow-egress-trivy-operator
   namespace: trivy-system
 spec:
   egress:
@@ -21,5 +21,29 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: trivy-operator
+  policyTypes:
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-trivy-workload
+  namespace: trivy-system
+spec:
+  egress:
+    - ports:
+        - port: 443
+          protocol: TCP
+        - port: 80
+          protocol: TCP
+      to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            # https://github.com/aquasecurity/trivy/discussions/10425
+            except:
+              - 45.148.10.212/32
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/managed-by: trivy-operator
   policyTypes:
     - Egress
