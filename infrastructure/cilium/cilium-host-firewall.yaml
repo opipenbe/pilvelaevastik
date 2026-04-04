@@ -25,7 +25,7 @@ specs:
       - fromEntities:
           - host
           - remote-node
-          - ${CLUSTER_VIP}/32
+          #- ${CLUSTER_VIP}/32
         toPorts:
           - ports:
               - port: "2379"
