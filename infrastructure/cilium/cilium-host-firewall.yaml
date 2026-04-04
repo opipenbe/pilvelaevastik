@@ -112,7 +112,7 @@ specs:
       # Allow kubelet, cilium-health monitoring, hubble
       - fromEntities:
           - host
-          #- remote-node
+          - remote-node
         toPorts:
           - ports:
               - port: "4240"
@@ -161,6 +161,13 @@ specs:
               - port: "0-6442" # Deny all ports below 6443
                 protocol: TCP
               - port: "6444-65535" # Deny all ports above 6443
+                protocol: TCP
+      # Protect host network from workloads
+      - toCIDR:
+          - ${K8S_HOST_NETWORK}
+        toPorts:
+          - ports:
+              - port: "4244"
                 protocol: TCP
     endpointSelector:
       matchExpressions:
