@@ -158,8 +158,6 @@ specs:
           - ${CLUSTER_VIP}/32
         toPorts:
           - ports:
-              - port: "4244"
-                protocol: TCP
               - port: "0-6442" # Deny all ports below 6443
                 protocol: TCP
               - port: "6444-65535" # Deny all ports above 6443
@@ -174,3 +172,18 @@ specs:
             - kube-system
             - longhorn-system
             - velero
+  - description: >
+      Block access to Hubble Relay from workloads outside kube-system
+    endpointSelector:
+      matchExpressions:
+        - key: k8s:io.kubernetes.pod.namespace
+          operator: NotIn
+          values:
+            - kube-system
+    egressDeny:
+      - toCIDR:
+          - ${CLUSTER_VIP}/32
+        toPorts:
+          - ports:
+              - port: "4244"
+                protocol: TCP
