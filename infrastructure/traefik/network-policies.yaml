@@ -13,11 +13,7 @@ spec:
   - Egress
   # permit all ingress traffic
   ingress:
-  - ports:
-    - port: 80
-      protocol: TCP
-    - port: 443
-      protocol: TCP
+  - {}
   # permit egress traffic only in cluster
   egress:
   - to:
