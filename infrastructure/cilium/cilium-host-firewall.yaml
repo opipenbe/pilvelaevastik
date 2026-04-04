@@ -78,7 +78,7 @@ specs:
       # Allow talos apid, trustd access between nodes. After bootstrapping, the nodes are registered and Cilium can use entity-based rules.
       - fromEntities:
           - host
-          - remote-node
+          #- remote-node
         toPorts:
           - ports:
               - port: "50000"
