@@ -112,7 +112,7 @@ specs:
       # Allow kubelet, cilium-health monitoring, hubble, talos apid access from registered nodes
       - fromEntities:
           - host
-          - remote-node
+          #- remote-node
         toPorts:
           - ports:
               - port: "4240"
