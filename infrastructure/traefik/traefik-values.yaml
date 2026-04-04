@@ -10,7 +10,7 @@ data:
       single: true
       spec:
         type: LoadBalancer
-        allocateLoadBalancerNodePorts: false
+        #allocateLoadBalancerNodePorts: false
     logs:
       access:
         enabled: true
