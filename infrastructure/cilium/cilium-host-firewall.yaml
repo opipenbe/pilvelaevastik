@@ -45,18 +45,6 @@ specs:
           - ports:
               - port: "6443"
                 protocol: TCP
-    # Block NodePorts for control-plane nodes as they are not expected to run user workloads.
-    ingressDeny:
-      - fromEntities:
-          - all
-        toPorts:
-          - ports:
-              - port: "30000"
-                endPort: 32767
-                protocol: TCP
-              - port: "30000"
-                endPort: 32767
-                protocol: UDP
   - description: Filter ingress traffic to infra nodes
     nodeSelector:
       matchLabels:
