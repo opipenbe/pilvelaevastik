@@ -37,6 +37,7 @@ resource "kubernetes_config_map_v1" "cilium-kustomization" {
     CILIUM_PEER_ROUTER_ASN = "${var.cilium_peer_router_asn}"
     K8S_HOST_NETWORK = "${var.k8s_host_network}"
     MGMT_NETWORK = "${var.mgmt_network}"
+    CLUSTER_VIP = "${var.talos_k8s_cluster_vip}"
   }
   depends_on = [ flux_bootstrap_git.this ]
 }
