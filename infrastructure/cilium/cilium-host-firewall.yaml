@@ -22,9 +22,11 @@ specs:
         node-role.kubernetes.io/control-plane: ""
     ingress:
       # Allow etcd access from registered nodes
-      - fromEntities:
-          - host
-          - remote-node
+      #- fromEntities:
+      #    - host
+      #    - remote-node
+      - fromCIDR:
+          - ${K8S_HOST_NETWORK}
         toPorts:
           - ports:
               - port: "2379"
