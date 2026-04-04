@@ -45,6 +45,20 @@ specs:
           - ports:
               - port: "6443"
                 protocol: TCP
+    # Protect CLUSTER VIP from workloads as it is used only for kube-api. As cluster vip runs on host network, endpoints are not registered and Cilium cannot use entity-based rules.
+    egressDeny:
+      - toCIDR:
+          - ${CLUSTER_VIP}/32
+        toPorts:
+          - ports:
+              - port: "2379"
+                protocol: TCP
+              - port: "2380"
+                protocol: TCP
+              - port: "50000"
+                protocol: TCP
+              - port: "50001"
+                protocol: TCP
   - description: Filter ingress traffic to infra nodes
     nodeSelector:
       matchLabels:
