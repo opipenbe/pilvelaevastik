@@ -20,9 +20,6 @@ spec:
               - 45.148.10.212/32
   podSelector:
     matchLabels:
-      app.kubernetes.io/managed-by: trivy-operator
-      app.kubernetes.io/instance: trivy
       app.kubernetes.io/name: trivy-operator
-
   policyTypes:
     - Egress
