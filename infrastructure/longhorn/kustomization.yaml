@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - longhorn.yaml
   - longhorn-helm.yaml
-  #- longhorn-networkpolicies.yaml
+  - longhorn-networkpolicies.yaml

@@ -41,3 +41,11 @@ spec:
                 containers:
                   - name: "{{ element.name }}"
                     image: "{{ resolvedRef }}"
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - flux-system
+                - istio-system
+                - kube-system
+                - longhorn-system
