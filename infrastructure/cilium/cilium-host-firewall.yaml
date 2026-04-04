@@ -142,7 +142,12 @@ specs:
     egress:
       - toEntities:
           - kube-apiserver
-          # - ${CLUSTER_VIP}/32
+        toPorts:
+          - ports:
+              - port: "6443"
+                protocol: TCP
+      - toCIDR:
+          - ${CLUSTER_VIP}/32
         toPorts:
           - ports:
               - port: "6443"
