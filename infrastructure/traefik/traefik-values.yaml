@@ -5,6 +5,12 @@ metadata:
   namespace: flux-system
 data:
   values.yaml: |
+    service:
+      enabled: true
+      single: true
+      spec:
+        type: LoadBalancer
+        allocateLoadBalancerNodePorts: false
     logs:
       access:
         enabled: true
