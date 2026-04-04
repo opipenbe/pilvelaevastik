@@ -103,12 +103,12 @@ specs:
                 protocol: TCP
               - port: "50000"
                 protocol: TCP
-              - port: "4240"
-                protocol: TCP
-              - port: "4244"
-                protocol: TCP
-              - port: "4245"
-                protocol: TCP
+              #- port: "4240"
+              #  protocol: TCP
+              #- port: "4244"
+              #  protocol: TCP
+              #- port: "4245"
+              #  protocol: TCP
       # Allow kubelet, cilium-health monitoring, hubble
       - fromEntities:
           - host
