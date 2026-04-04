@@ -64,20 +64,6 @@ specs:
     egress:
       - toEntities:
           - all
-    # Protect CLUSTER VIP from workloads as it is used only for kube-api. As cluster vip runs on host network, endpoints are not registered and Cilium cannot use entity-based rules.
-    egressDeny:
-      - toCIDR:
-          - ${CLUSTER_VIP}/32
-        toPorts:
-          - ports:
-              - port: "2379"
-                protocol: TCP
-              - port: "2380"
-                protocol: TCP
-              - port: "50000"
-                protocol: TCP
-              - port: "50001"
-                protocol: TCP
     # Filter ingress traffic to all nodes
     ingress:
       # Allow talos apid, trustd access between nodes. During bootsrapping, the nodes are not registered yet, so Cilium cannot use entity-based rules. This rule can be disabled after bootstrapping.
@@ -165,6 +151,20 @@ specs:
               - port: "53"
                 protocol: UDP
               - port: "53"
+                protocol: TCP
+    # Protect CLUSTER VIP from workloads as it is used only for kube-api. As cluster vip runs on host network, endpoints are not registered and Cilium cannot use entity-based rules.
+    egressDeny:
+      - toCIDR:
+          - ${CLUSTER_VIP}/32
+        toPorts:
+          - ports:
+              - port: "2379"
+                protocol: TCP
+              - port: "2380"
+                protocol: TCP
+              - port: "50000"
+                protocol: TCP
+              - port: "50001"
                 protocol: TCP
     endpointSelector:
       matchExpressions:
