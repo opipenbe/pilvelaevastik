@@ -109,7 +109,7 @@ specs:
                 protocol: TCP
               - port: "4245"
                 protocol: TCP
-      # Allow kubelet, cilium-health monitoring, hubble, talos apid access from registered nodes
+      # Allow kubelet, cilium-health monitoring, hubble
       - fromEntities:
           - host
           #- remote-node
