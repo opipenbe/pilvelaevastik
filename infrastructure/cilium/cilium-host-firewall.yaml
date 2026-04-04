@@ -117,10 +117,10 @@ specs:
           - ports:
               - port: "4240"
                 protocol: TCP
-              - port: "4244"
-                protocol: TCP
-              - port: "4245"
-                protocol: TCP
+              #- port: "4244"
+              #  protocol: TCP
+              #- port: "4245"
+              #  protocol: TCP
       # Allow monitoring: ICMP echo requests
       - fromEntities:
           - host
@@ -172,18 +172,3 @@ specs:
             - kube-system
             - longhorn-system
             - velero
-  - description: >
-      Block access to Hubble Relay from workloads outside kube-system
-    endpointSelector:
-      matchExpressions:
-        - key: k8s:io.kubernetes.pod.namespace
-          operator: In
-          values:
-            - kube-system
-    egressDeny:
-      - toCIDR:
-          - ${CLUSTER_VIP}/32
-        toPorts:
-          - ports:
-              - port: "4244"
-                protocol: TCP
