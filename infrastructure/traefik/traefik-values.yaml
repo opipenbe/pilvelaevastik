@@ -8,6 +8,8 @@ data:
     service:
       enabled: true
       single: true
+      spec:
+        type: LoadBalancer
     logs:
       access:
         enabled: true
