@@ -9,6 +9,8 @@ data:
       enabled: true
       single: true
       type: LoadBalancer
+      spec:
+        type: LoadBalancer
     logs:
       access:
         enabled: true
