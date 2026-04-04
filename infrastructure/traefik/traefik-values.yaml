@@ -5,6 +5,9 @@ metadata:
   namespace: flux-system
 data:
   values.yaml: |
+    service:
+      enabled: true
+      single: true
     logs:
       access:
         enabled: true
