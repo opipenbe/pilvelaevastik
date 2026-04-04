@@ -13,3 +13,4 @@ resources:
   - disable-automount-serviceaccount-token.yaml
   - require-emptydir-requests-limits.yaml
   - resolve-image-to-digest.yaml
+  - restrict-nodeport.yaml
