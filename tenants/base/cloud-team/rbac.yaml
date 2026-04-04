@@ -9,7 +9,7 @@ metadata:
     # baseline is required for application bootstrap
     pod-security.kubernetes.io/enforce: baseline
     pod-security.kubernetes.io/warn: baseline
-    istio.io/dataplane-mode: ambient
+    #istio.io/dataplane-mode: ambient
   name: apps
 ---
 apiVersion: v1
