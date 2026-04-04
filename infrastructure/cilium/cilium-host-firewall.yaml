@@ -24,7 +24,7 @@ specs:
       # Allow etcd access from registered nodes
       - fromEntities:
           - host
-          - remote-node
+          #- remote-node
         toPorts:
           - ports:
               - port: "2379"
