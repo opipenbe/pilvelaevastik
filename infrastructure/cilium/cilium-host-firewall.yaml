@@ -67,14 +67,14 @@ specs:
     # Filter ingress traffic to all nodes
     ingress:
       # Allow talos apid, trustd access between nodes. During bootsrapping, the nodes are not registered yet, so Cilium cannot use entity-based rules. This rule can be disabled after bootstrapping.
-      - fromCIDR:
-          - ${K8S_HOST_NETWORK}
-        toPorts:
-          - ports:
-              - port: "50000"
-                protocol: TCP
-              - port: "50001"
-                protocol: TCP
+      #- fromCIDR:
+      #    - ${K8S_HOST_NETWORK}
+      #  toPorts:
+      #    - ports:
+      #        - port: "50000"
+      #          protocol: TCP
+      #        - port: "50001"
+      #          protocol: TCP
       # Allow talos apid, trustd access between nodes. After bootstrapping, the nodes are registered and Cilium can use entity-based rules.
       - fromEntities:
           - host
