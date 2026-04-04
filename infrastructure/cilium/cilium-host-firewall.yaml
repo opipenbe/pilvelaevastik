@@ -48,7 +48,7 @@ specs:
     # Block NodePorts for control-plane nodes as they are not expected to run user workloads.
     ingressDeny:
       - fromEntities:
-          - world
+          - all
         toPorts:
           - ports:
               - port: "30000"
