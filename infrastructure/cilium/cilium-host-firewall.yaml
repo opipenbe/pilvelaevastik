@@ -31,6 +31,14 @@ specs:
                 protocol: TCP
               - port: "2380"
                 protocol: TCP
+      - fromCIDR:
+        - ${K8S_HOST_NETWORK}
+        toPorts:
+          - ports:
+              - port: "2379"
+                protocol: TCP
+              - port: "2380"
+                protocol: TCP
       # Allow kube-apiserver access from the cluster
       - fromEntities:
           - cluster
