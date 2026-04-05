@@ -30,8 +30,8 @@ spec:
         pattern:
           spec:
             "=(ephemeralContainers)":
-              - image: docker.io/* | ghcr.io/* | gcr.io/* | registry.k8s.io/* | quay.io/* | reg.kyverno.io/* | mirror.gcr.io/* | us-central1-docker.pkg.dev/*
+              - image: docker.io/* | index.docker.io/* | ghcr.io/* | gcr.io/* | registry.k8s.io/* | quay.io/* | reg.kyverno.io/* | mirror.gcr.io/* | us-central1-docker.pkg.dev/*
             "=(initContainers)":
-              - image: docker.io/* | ghcr.io/* | gcr.io/* | registry.k8s.io/* | quay.io/* | reg.kyverno.io/* | mirror.gcr.io/* | us-central1-docker.pkg.dev/*
+              - image: docker.io/* | index.docker.io/* | ghcr.io/* | gcr.io/* | registry.k8s.io/* | quay.io/* | reg.kyverno.io/* | mirror.gcr.io/* | us-central1-docker.pkg.dev/*
             containers:
-              - image: docker.io/* | ghcr.io/* | gcr.io/* | registry.k8s.io/* | quay.io/* | reg.kyverno.io/* | mirror.gcr.io/* | us-central1-docker.pkg.dev/*
+              - image: docker.io/* | index.docker.io/* | ghcr.io/* | gcr.io/* | registry.k8s.io/* | quay.io/* | reg.kyverno.io/* | mirror.gcr.io/* | us-central1-docker.pkg.dev/*
