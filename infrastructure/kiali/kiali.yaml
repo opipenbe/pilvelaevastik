@@ -38,7 +38,7 @@ spec:
     onlyViewOnlyMode: true
     cr:
       create: true
-      namespace: kiali-operator
+      namespace: istio-system
       spec:
         auth:
           strategy: "anonymous"
