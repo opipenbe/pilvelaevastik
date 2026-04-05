@@ -67,6 +67,12 @@ spec:
     - path:
         type: PathPrefix
         value: /
+    filters:
+      - type: ExtensionRef
+        extensionRef:
+          group: traefik.io
+          kind: Middleware
+          name: policy-reporter-auth
     backendRefs:
     - name: policy-reporter-ui
       namespace: policy-reporter
