@@ -63,7 +63,7 @@ spec:
       complianceReports:
         enabled: true
       configAuditReports:
-        enabled: false
+        enabled: true
       infraAssessmentReports:
         enabled: false
       clusterInfraAssessmentReports:
