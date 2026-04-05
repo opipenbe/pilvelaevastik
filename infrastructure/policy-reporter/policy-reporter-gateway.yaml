@@ -1,4 +1,36 @@
 ---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: policy-reporter-auth
+  namespace: policy-reporter
+spec:
+  basicAuth:
+    secret: policy-reporter-auth
+---
+apiVersion: v1
+data:
+    users: ENC[AES256_GCM,data:cvnCgFTBgLfriRn2eP9e2aezIlX2ax62Fq4wscxk9NqXjUfVoZb28XXvYFgkSZhpUjlVD25T+bk1KYsfGa8lIg==,iv:xQhA7YzdIliOgLcXxvtjjCpN1resf1l5TN9GIpt27vY=,tag:v6CSm4LWSE+u81t5eQDH2g==,type:str]
+kind: Secret
+metadata:
+    name: policy-reporter-auth
+    namespace: policy-reporter
+sops:
+    age:
+        - recipient: age14x7z7kqzkfhk7q3hx9ny86zjp52q5jn36n3jfxeavd34xjxl9smsk0xxu7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBGTnpQTDlkQmo2cGZybjdx
+            U3hVaTE0MnhlRnNDbnZjZlhwbnM3d2VNSW5FClU4T2NLZXpFSEZzSDBoRDlDUUlN
+            dGxQNVFrT0FJL3Z2czd1VER1Y3dTRHcKLS0tIEdSYnVLalUwNTZKUEZPSURQWWZD
+            RXBSd0kxVnFSQTFpRXVSY0JtU0ZBanMKL4kohmkEqi35UvtEnfFqHl5wKzrvAoFC
+            3pxzfBFrvOkXlI2wfXins1RhlWnSkwMLdwN8jB7+Jcu/vIC90KjXlQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-05T11:42:29Z"
+    mac: ENC[AES256_GCM,data:2BvS9K++ukbaA/ok/o8m5WHqB1rhy1ogrj2bFW499ZGERAHM24Mi4wZBAo95AM2gI/agP11GNk9fdWM+2AM/SmZw1Ck5uUZ/KJPzs8o8vMzaU/NUov2Ay7BhZrqm9yqzhMy/S4fstAcNykJKjnDzTqQUmKSVbFgBA2x78l9V5FU=,iv:VVYwY4Wi3Lff4PKCzlmMq3w9X975pcwpIqD1WU2Z2ek=,tag:9WJDLykaykDQWV/A5kB3Hg==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
