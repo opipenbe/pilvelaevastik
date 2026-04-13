@@ -8,6 +8,7 @@ metadata:
   name: require-emptydir-requests-and-limits
   annotations:
     policies.kyverno.io/title: Require Requests and Limits for emptyDir
+    policies.kyverno.io/category: Workload Security and Governance Policies
     #policies.kyverno.io/category: Other
     policies.kyverno.io/severity: medium
     policies.kyverno.io/minversion: 1.9.0

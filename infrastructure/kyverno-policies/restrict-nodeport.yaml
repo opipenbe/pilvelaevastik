@@ -6,6 +6,8 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: restrict-nodeport-and-lb-nodeports
+  annotations:
+    policies.kyverno.io/category: Workload Security and Governance Policies
 spec:
   validationFailureAction: Audit
   background: true
