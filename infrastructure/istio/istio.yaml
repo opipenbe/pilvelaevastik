@@ -133,6 +133,5 @@ spec:
       enabled:
         true
     env:
-      - name: IPV6_ENABLED
-        value: "false"
+      IPV6_ENABLED: "false"
 
