@@ -58,3 +58,4 @@ spec:
                 - velero
                 - kyverno
                 - trivy-system
+                - cert-manager                

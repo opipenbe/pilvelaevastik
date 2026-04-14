@@ -72,4 +72,3 @@ spec:
               - trivy-adapter
               - trivy-system
               - velero
-              - kiali-operator

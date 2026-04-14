@@ -42,7 +42,7 @@ spec:
       name: RetryOnFailure
       retryInterval: 1m
   values:
-    excludeNamespaces: "cert-manager,cilium-secrets,default,flux-system,istio-system,kiali-operator,kube-node-lease,kube-public,kube-system,kubelet-serving-cert-approver,kyverno,longhorn-system,policy-reporter,trivy-adapter,trivy-system,velero"
+    excludeNamespaces: "cert-manager,cilium-secrets,default,flux-system,istio-system,kube-node-lease,kube-public,kube-system,kubelet-serving-cert-approver,kyverno,longhorn-system,policy-reporter,trivy-adapter,trivy-system,velero"
   valuesFrom:
   - kind: ConfigMap
     name: trivy-operator-values
