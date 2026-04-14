@@ -36,7 +36,7 @@ spec:
       node-role.kubernetes.io/infra: ""
   bgpInstances:
   - name: "instance-${CILIUM_PEER_ROUTER_ASN}"
-    localPort: 179
+    #localPort: 179
     localASN: 64513
     peers:
     - name: "peer-${CILIUM_PEER_ROUTER_ASN}"
