@@ -11,6 +11,5 @@ https://github.com/opipenbe/market-team-project
 https://github.com/opipenbe/cloud-team-project
 ```
 
-Demo:
-
+Demo video of this project, showcasing the bootstrapping of a Kubernetes cluster:
 [![Watch the video](https://img.youtube.com/vi/pJPI538mkpg/0.jpg)](https://youtu.be/pJPI538mkpg)
