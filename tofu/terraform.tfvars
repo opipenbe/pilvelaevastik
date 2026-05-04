@@ -243,7 +243,7 @@ talos_k8s_cluster_vip = "172.16.90.10"
 image_registry_mirror = "https://registry.pipenberg.eu"
 talos_version = "1.13.0"
 talos_image = "factory.talos.dev/nocloud-installer-secureboot/48543e3f1d9a047be0aef499aa4c901ad1608294c426ebe88b574c1e38cbb4be:v1.13.0"
-k8s_version = "1.35.4"
+k8s_version = "1.36.0"
 k8s_host_network = "172.16.90.0/24"
 mgmt_network = "172.16.88.0/24"
 ### Cilium variables ###
