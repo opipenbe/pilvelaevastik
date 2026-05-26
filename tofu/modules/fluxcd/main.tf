@@ -10,8 +10,8 @@ terraform {
 }
 
 resource "flux_bootstrap_git" "this" {
-  path               = "clusters/live"
-  version = "v2.8.3"
+  path               = "${var.flux_bootstrap_path}"
+  version = "v${var.flux_version}"
   kustomization_override = file("${path.root}/modules/fluxcd/templates/kustomization.yaml")
 }
 

@@ -28,3 +28,13 @@ variable "talos_k8s_cluster_vip" {
   type        = string
   description = "VIP to connect to the Kubernetes cluster"
 }
+
+variable "flux_version" {
+  type        = string
+  description = "Version of FluxCD to deploy"
+}
+
+variable "flux_bootstrap_path" {
+  type        = string
+  description = "Path within the Git repository for FluxCD bootstrap"
+}

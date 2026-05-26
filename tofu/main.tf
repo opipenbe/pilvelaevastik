@@ -40,6 +40,8 @@ module "fluxcd" {
   k8s_host_network = var.k8s_host_network
   mgmt_network = var.mgmt_network
   talos_k8s_cluster_vip = var.talos_k8s_cluster_vip
+  flux_bootstrap_path = var.flux_bootstrap_path
+  flux_version = var.flux_version
   depends_on = [module.cilium]
 }
 
