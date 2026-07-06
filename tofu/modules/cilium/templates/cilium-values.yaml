@@ -72,8 +72,6 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 securityContext:
-  runAsUser: 0 # for BGP
-  privileged: true # for BGP
   capabilities:
     ciliumAgent:
       - CHOWN
