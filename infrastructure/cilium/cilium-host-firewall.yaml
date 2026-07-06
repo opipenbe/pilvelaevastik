@@ -93,7 +93,7 @@ specs:
           - ports:
               - port: "10250"
                 protocol: TCP
-      # Allow kubelet, cilium-health monitoring, hubble, talos apid access from the kube-system namespace
+      # Allow kubelet, cilium-health monitoring, hubble, talos apid, host-local dns access from the kube-system namespace
       - fromEndpoints:
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: kube-system
@@ -108,6 +108,10 @@ specs:
               - port: "4244"
                 protocol: TCP
               - port: "4245"
+                protocol: TCP
+              - port: "53"
+                protocol: UDP
+              - port: "53"
                 protocol: TCP
       # Allow kubelet, cilium-health monitoring, hubble
       - fromEntities:
