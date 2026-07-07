@@ -2,29 +2,6 @@ vms = {
   "t-cp1.pipenberg.eu" = {
     memory = "4096"
     cpus = "4"
-    ip = "172.16.90.11"
-    network_cidr = "24"
-    dns_server1 = "172.16.90.1"
-    dns_server2 = "172.16.90.2"
-    ntp_servers = ["172.16.90.1"]
-    gw_ip = "172.16.90.1"
-    root_disk_size = "102400"    
-    "pve" = {
-      node_name = "a-hv"
-      vm_storage = "ssd"
-      template_storage = "local"
-    },
-    labels = {
-          "topology.kubernetes.io/zone" = "a"
-        },
-    "talos" = {
-      node_role = "control-plane",
-      enable_systemdisk_encryption = true
-    }
-  },
-  "t-cp2.pipenberg.eu" = {
-    memory = "4096"
-    cpus = "4"
     ip = "172.16.90.12"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
@@ -47,7 +24,7 @@ vms = {
       enable_systemdisk_encryption = true
     }
   },
-  "t-cp3.pipenberg.eu" = {
+  "t-cp2.pipenberg.eu" = {
     memory = "4096"
     cpus = "4"
     ip = "172.16.90.13"
@@ -72,35 +49,6 @@ vms = {
     }
   },
   "t-w1.pipenberg.eu" = {
-    memory = "8192"
-    cpus = "4"
-    ip = "172.16.90.14"
-    network_cidr = "24"
-    dns_server1 = "172.16.90.1"
-    dns_server2 = "172.16.90.2"
-    ntp_servers = ["172.16.90.1"]
-    gw_ip = "172.16.90.1"
-    root_disk_size = "102400"
-    data_disk1_size = "153600"
-        
-    "pve" = {
-      node_name = "a-hv"
-      vm_storage = "ssd"
-      template_storage = "local"
-    },
-    labels = {
-          "topology.kubernetes.io/zone" = "a",
-          "node.longhorn.io/create-default-disk" = true,
-        },
-    "talos" = {
-      node_role = "worker",
-      enable_systemdisk_encryption = true
-    }
-    "kubernetes" = {
-      infra_node = true
-    }
-  },
-  "t-w2.pipenberg.eu" = {
     memory = "8192"
     cpus = "4"
     ip = "172.16.90.15"
@@ -128,7 +76,7 @@ vms = {
       infra_node = true
     }
   },
-  "t-w3.pipenberg.eu" = {
+  "t-w2.pipenberg.eu" = {
     memory = "8192"
     cpus = "4"
     ip = "172.16.90.16"
@@ -157,32 +105,7 @@ vms = {
       infra_node = true
     }
   },
-  "t-w4.pipenberg.eu" = {
-    memory = "8192"
-    cpus = "4"
-    ip = "172.16.90.17"
-    network_cidr = "24"
-    dns_server1 = "172.16.90.1"
-    dns_server2 = "172.16.90.2"
-    ntp_servers = ["172.16.90.1"]
-    gw_ip = "172.16.90.1"
-    root_disk_size = "102400"    
-    "pve" = {
-      node_name = "a-hv"
-      vm_storage = "ssd"
-      template_storage = "local"
-    },
-    
-    labels = {
-          "topology.kubernetes.io/zone" = "a",
-          "node.longhorn.io/create-default-disk" = false
-        },
-    "talos" = {
-      node_role = "worker"
-      enable_systemdisk_encryption = true
-    }
-  },
-  "t-w5.pipenberg.eu" = {
+  "t-w3.pipenberg.eu" = {
     memory = "8192"
     cpus = "4"
     ip = "172.16.90.18"
@@ -207,7 +130,7 @@ vms = {
       enable_systemdisk_encryption = true
     }
   },
-  "t-w6.pipenberg.eu" = {
+  "t-w4.pipenberg.eu" = {
     memory = "8192"
     cpus = "4"
     ip = "172.16.90.19"
@@ -253,5 +176,5 @@ cilium_peer_router_asn = "64500"
 ### Flux variables ###
 flux_version = "2.9.0"
 git_repo = "https://github.com/opipenbe/pilvelaevastik.git"
-git_branch = "main"
+git_branch = "nova"
 flux_bootstrap_path = "clusters/live"
