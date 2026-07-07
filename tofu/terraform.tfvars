@@ -2,7 +2,7 @@ vms = {
   "t-cp1.pipenberg.eu" = {
     memory = "4096"
     cpus = "4"
-    ip = "172.16.90.12"
+    ip = "172.16.90.11"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
     dns_server2 = "172.16.90.2"
@@ -27,7 +27,7 @@ vms = {
   "t-cp2.pipenberg.eu" = {
     memory = "4096"
     cpus = "4"
-    ip = "172.16.90.13"
+    ip = "172.16.90.12"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
     dns_server2 = "172.16.90.2"
@@ -42,6 +42,30 @@ vms = {
     },    
     labels = {
           "topology.kubernetes.io/zone" = "c"
+        },
+    "talos" = {
+      node_role = "control-plane",
+      enable_systemdisk_encryption = true
+    }
+  },
+  "t-cp3.pipenberg.eu" = {
+    memory = "4096"
+    cpus = "4"
+    ip = "172.16.90.13"
+    network_cidr = "24"
+    dns_server1 = "172.16.90.1"
+    dns_server2 = "172.16.90.2"
+    ntp_servers = ["172.16.90.1"]
+    gw_ip = "172.16.90.1"
+    root_disk_size = "102400"
+        
+    "pve" = {
+      node_name = "b-hv"
+      vm_storage = "ssd"
+      template_storage = "local"
+    },    
+    labels = {
+          "topology.kubernetes.io/zone" = "b"
         },
     "talos" = {
       node_role = "control-plane",
