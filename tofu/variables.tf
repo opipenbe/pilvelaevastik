@@ -131,6 +131,11 @@ variable "git_repo" {
   description = "Git repository URL for FluxCD to sync with"
 }
 
+variable "git_branch" {
+  type = string
+  description = "Git repository branch"
+}
+
 variable "flux_version" {
   type        = string
   description = "Version of FluxCD to deploy"

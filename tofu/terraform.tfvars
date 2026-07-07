@@ -253,4 +253,5 @@ cilium_peer_router_asn = "64500"
 ### Flux variables ###
 flux_version = "2.9.0"
 git_repo = "https://github.com/opipenbe/pilvelaevastik.git"
+git_branch = "main"
 flux_bootstrap_path = "clusters/live"

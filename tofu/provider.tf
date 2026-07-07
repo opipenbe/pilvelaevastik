@@ -72,5 +72,6 @@ provider "flux" {
       username = "git" # This can be any string when using a personal access token
       password = var.git_pat_token
     }
+    branch = var.git_branch
   }
 }
