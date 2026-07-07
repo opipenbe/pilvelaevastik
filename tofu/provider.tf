@@ -2,27 +2,27 @@ terraform {
   required_providers {
     talos = {
       source  = "siderolabs/talos"
-      version = "0.10.1"
+      version = "0.11.0"
     }
     proxmox = {
       source = "bpg/proxmox"
-      version = "0.97.1"
+      version = "0.111.1"
     }
     helm = {
       source = "hashicorp/helm"
-      version = "3.1.1"
+      version = "3.2.0"
     }
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = "3.0.1"
+      version = "3.2.1"
     }
     flux = {
       source = "fluxcd/flux"
-      version = "1.8.3"
+      version = "1.9.0"
     }
     time = {
       source = "hashicorp/time"
-      version = "0.13.1"
+      version = "0.14.0"
     }
   }
   backend "s3" {
