@@ -29,7 +29,7 @@ spec:
   releaseName: traefik
   chart:
     spec:
-      version: "39.0.7"
+      version: "41.0.2"
       chart: traefik
       sourceRef:
         kind: HelmRepository
