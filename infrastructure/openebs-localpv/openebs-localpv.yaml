@@ -43,7 +43,7 @@ spec:
   values:
     hostpathClass:
       enabled: true
-      isDefaultClass: true
+      isDefaultClass: false
       basePath: "/var/mnt/longhorn"
     localpv:
       resources:
