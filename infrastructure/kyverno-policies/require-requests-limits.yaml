@@ -51,4 +51,5 @@ spec:
                 - istio-system
                 - kube-system
                 - longhorn-system
+                - openebs
                 - velero
