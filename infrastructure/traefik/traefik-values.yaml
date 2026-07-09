@@ -32,7 +32,7 @@ data:
         operator: Exists
         effect: NoSchedule
     deployment:
-      replicas: 3
+      replicas: 2
     updateStrategy:  # @schema additionalProperties: false
       # -- Customize updateStrategy of Deployment or DaemonSet
       type: RollingUpdate
