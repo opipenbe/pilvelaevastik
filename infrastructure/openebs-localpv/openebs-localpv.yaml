@@ -45,3 +45,17 @@ spec:
       enabled: true
       isDefaultClass: true
       basePath: "/var/mnt/longhorn"
+    localpv:
+      resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      tolerations:
+        - key: node-role.kubernetes.io/infra
+          operator: Exists
+          effect: NoSchedule
