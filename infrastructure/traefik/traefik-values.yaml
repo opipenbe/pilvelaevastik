@@ -11,10 +11,9 @@ data:
       type: LoadBalancer
       spec:
         allocateLoadBalancerNodePorts: false
-    logs:
-      access:
-        enabled: true
-        format: "common" 
+    log:
+      format: "common"
+      level: "INFO"
     api:
       dashboard: false
     affinity:
