@@ -68,6 +68,7 @@ spec:
               - kubelet-serving-cert-approver
               - kyverno
               - longhorn-system
+              - openebs
               - policy-reporter
               - traefik
               - trivy-adapter
