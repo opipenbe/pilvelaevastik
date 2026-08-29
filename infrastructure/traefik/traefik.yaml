@@ -10,13 +10,18 @@ metadata:
   name: traefik
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: traefik
   namespace: flux-system
 spec:
-  interval: 1m
-  url: https://traefik.github.io/charts
+  interval: 72h
+  url: oci://ghcr.io/traefik/helm/traefik
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    semver: ">=41.0.2 <42.0.0"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -27,14 +32,9 @@ spec:
   serviceAccountName: helm-controller
   targetNamespace: traefik
   releaseName: traefik
-  chart:
-    spec:
-      version: "41.0.2"
-      chart: traefik
-      sourceRef:
-        kind: HelmRepository
-        name: traefik
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: traefik
   interval: 1m
   timeout: 15m
   install:
