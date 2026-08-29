@@ -156,8 +156,8 @@ specs:
                 protocol: UDP
               - port: "53"
                 protocol: TCP
-      - toCIDR:
-          - 0.0.0.0/0 # Allow traffic to all external IPs
+      - toEntities:
+          - world
         toPorts:
           - ports:
               - port: "53"
