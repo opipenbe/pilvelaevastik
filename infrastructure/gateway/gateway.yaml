@@ -30,6 +30,20 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: star-pipenberg-eu
+  namespace: tls-certs
+spec:
+  commonName: '*.pipenberg.eu'
+  dnsNames:
+  - '*.pipenberg.eu'
+  issuerRef:
+    kind: Issuer
+    name: le-issuer
+  secretName: star-pipenberg-eu
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: acme-dns-server
   namespace: tls-certs
 spec:
@@ -51,10 +65,31 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       namespace: traefik-acme
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: traefik-acme
   to:
     - group: ""
       kind: Secret
       name: acme-dns-server
+    - group: ""
+      kind: Secret
+      name: star-pipenberg-eu
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-traefik-gateway
+  namespace: tls-certs
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: traefik
+  to:
+    - group: ""
+      kind: Secret
+      name: star-pipenberg-eu
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
@@ -91,7 +126,7 @@ metadata:
   namespace: traefik
 spec:
   defaultCertificate:
-    secretName: selfsigned-cert-tls
+    secretName: star-pipenberg-eu
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -114,7 +149,6 @@ spec:
                 operator: In
                 values:
                   - policy-reporter
-                  - nextcloud
                   - shop
     - name: websecure
       protocol: HTTPS
@@ -123,7 +157,7 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          -  name: selfsigned-cert-tls
+          -  name: star-pipenberg-eu
       allowedRoutes:
         namespaces:
           from: Selector
@@ -133,7 +167,6 @@ spec:
                 operator: In
                 values:
                   - policy-reporter
-                  - nextcloud
                   - shop
 ---
 apiVersion: gateway.networking.k8s.io/v1
