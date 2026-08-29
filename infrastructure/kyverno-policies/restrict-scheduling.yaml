@@ -71,6 +71,7 @@ spec:
               - openebs
               - policy-reporter
               - traefik
+              - traefik-acme
               - trivy-adapter
               - trivy-system
               - velero
