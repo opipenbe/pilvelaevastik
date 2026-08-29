@@ -150,6 +150,9 @@ specs:
           - matchLabels:
               k8s:io.kubernetes.pod.namespace: kube-system
               k8s-app: kube-dns
+            - matchLabels:
+              k8s:io.kubernetes.pod.namespace: cert-manager
+              k8s-app: cert-manager
         toPorts:
           - ports:
               - port: "53"
@@ -178,4 +181,3 @@ specs:
             - kube-system
             - longhorn-system
             - velero
-            - cert-manager
