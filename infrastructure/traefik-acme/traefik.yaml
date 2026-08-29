@@ -44,6 +44,12 @@ spec:
                 app.kubernetes.io/name: '{{ template "traefik.name" . }}'
                 app.kubernetes.io/instance: '{{ .Release.Name }}-{{ include "traefik.namespace" . }}'
             topologyKey: kubernetes.io/hostname
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+    tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
     providers:
       kubernetesGateway:
         enabled: true
