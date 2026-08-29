@@ -74,3 +74,4 @@ spec:
               - trivy-adapter
               - trivy-system
               - velero
+              - cnpg-system
