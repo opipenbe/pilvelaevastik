@@ -156,14 +156,6 @@ specs:
                 protocol: UDP
               - port: "53"
                 protocol: TCP
-      - toEntities:
-          - world
-        toPorts:
-          - ports:
-              - port: "53"
-                protocol: UDP
-              - port: "53"
-                protocol: TCP
     # Protect CLUSTER VIP from workloads as it is used only for kube-api. As cluster vip runs on host network, endpoints are not registered and Cilium cannot use entity-based rules.
     egressDeny:
       - toCIDR:
