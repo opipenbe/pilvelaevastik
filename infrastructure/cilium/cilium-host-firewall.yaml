@@ -156,19 +156,19 @@ specs:
                 protocol: UDP
               - port: "53"
                 protocol: TCP
-    # TEST
-    - description: >
-        Allow only DNS requests from cert-manager namespace
-      endpointSelector:
-        matchLabels:
-          k8s:io.kubernetes.pod.namespace: cert-manager
-      egress:
-        - toPorts:
-            - ports:
-                - port: "53"
-                  protocol: UDP
-                - port: "53"
-                  protocol: TCP
+  # TEST
+  - description: >
+      Allow only DNS requests from cert-manager namespace
+    endpointSelector:
+      matchLabels:
+        k8s:io.kubernetes.pod.namespace: cert-manager
+    egress:
+      - toPorts:
+          - ports:
+              - port: "53"
+                protocol: UDP
+              - port: "53"
+                protocol: TCP
     # Protect CLUSTER VIP from workloads as it is used only for kube-api. As cluster vip runs on host network, endpoints are not registered and Cilium cannot use entity-based rules.
     egressDeny:
       - toCIDR:
