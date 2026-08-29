@@ -32,6 +32,7 @@ metadata:
 spec:
   serviceAccountName: kustomize-controller
   targetNamespace: cert-manager
+  releaseName: cert-manager
   interval: 1m
   timeout: 15m
   install:
