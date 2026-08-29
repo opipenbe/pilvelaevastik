@@ -10,6 +10,21 @@ spec:
     matchLabels:
       "io.kubernetes.service.namespace": "traefik"
 ---
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "acme-dns-lb-pool"
+spec:
+  blocks:
+  - cidr: "30.0.0.53/32"
+  serviceSelector:
+    matchExpressions:
+      - key: "io.kubernetes.service.namespace"
+        operator: In
+        values:
+          - acme-dns
+          - traefik-acme
+---
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
@@ -25,6 +40,20 @@ spec:
       selector:
         matchLabels:
           "io.kubernetes.service.namespace": "traefik"
+    - advertisementType: "Service"
+      service:
+        addresses:
+          - LoadBalancerIP
+      selector:
+        matchLabels:
+          "io.kubernetes.service.namespace": "traefik-acme"
+    - advertisementType: "Service"
+      service:
+        addresses:
+          - LoadBalancerIP
+      selector:
+        matchLabels:
+          "io.kubernetes.service.namespace": "acme-dns"
 ---
 apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig

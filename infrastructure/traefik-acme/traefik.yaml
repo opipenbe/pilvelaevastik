@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/warn: restricted
+  name: traefik-acme
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik-acme
+  namespace: flux-system
+spec:
+  serviceAccountName: helm-controller
+  targetNamespace: traefik-acme
+  releaseName: traefik-acme
+  chartRef:
+    kind: OCIRepository
+    name: traefik
+  interval: 1m
+  timeout: 5m
+  install:
+    crds: Skip
+    remediation:
+      retries: 3
+  upgrade:
+    crds: Skip
+    remediation:
+      retries: 3
+  values:
+    log:
+      format: "common"
+      level: "INFO"
+    api:
+      dashboard: false
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: '{{ template "traefik.name" . }}'
+                app.kubernetes.io/instance: '{{ .Release.Name }}-{{ include "traefik.namespace" . }}'
+            topologyKey: kubernetes.io/hostname
+    providers:
+      kubernetesGateway:
+        enabled: true
+      kubernetesCRD:
+        enabled: true
+        ingressClass: "acme-dns"
+        namespaces:
+          - acme-dns
+          - tls-certs
+      kubernetesIngress:
+        enabled: false
+    deployment:
+      replicas: 2
+    ingressClass:
+      enabled: false
+    updateStrategy:  # @schema additionalProperties: false
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1  # @schema type:[integer, string, null]
+        maxSurge: 1        # @schema type:[integer, string, null]
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    ports:
+      web:
+        port: 8000
+        protocol: TCP
+        expose:
+          default: false
+      websecure:
+        port: 8443
+        protocol: TCP
+        expose:
+          default: false
+      http:
+        asDefault:
+        port: 9000
+        expose:
+          default: true
+        exposedPort: 80
+        targetPort:
+        protocol: TCP
+      https:
+        port: 9443
+        hostPort:
+        containerPort:
+        expose:
+          default: true
+        exposedPort: 443
+        targetPort:
+        protocol: TCP
+    service:
+      enabled: true
+      annotations:
+        "lbipam.cilium.io/sharing-key": "acme-dns"
+        "lbipam.cilium.io/sharing-cross-namespace": "acme-dns"
+
