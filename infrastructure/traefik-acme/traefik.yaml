@@ -31,9 +31,13 @@ spec:
     remediation:
       retries: 3
   values:
-    log:
-      format: "common"
-      level: "INFO"
+    #log:
+    #  format: "common"
+    #  level: "INFO"
+    logs:
+      access:
+        enabled: true
+        format: "common" 
     api:
       dashboard: false
     affinity:
