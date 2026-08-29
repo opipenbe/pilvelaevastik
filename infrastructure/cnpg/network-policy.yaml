@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: cnpg-operator-egress-to-db
-  namespace: cnpg
+  namespace: cnpg-system
 spec:
   podSelector:
     matchLabels:
