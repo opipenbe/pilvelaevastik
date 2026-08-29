@@ -38,6 +38,25 @@ provisioner: driver.longhorn.io
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 ---
+apiVersion: storage.k8s.io/v1
+allowVolumeExpansion: true
+kind: StorageClass
+metadata:
+  name: longhorn-1r
+parameters:
+  backupTargetName: default
+  dataEngine: v1
+  dataLocality: disabled
+  disableRevisionCounter: "true"
+  fromBackup: ""
+  fsType: ext4
+  numberOfReplicas: "1"
+  staleReplicaTimeout: "30"
+  unmapMarkSnapChainRemoved: ignored
+provisioner: driver.longhorn.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+---
 apiVersion: v1
 kind: Secret
 metadata:
