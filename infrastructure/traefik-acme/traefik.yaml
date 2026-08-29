@@ -57,6 +57,9 @@ spec:
     providers:
       kubernetesGateway:
         enabled: true
+        namespaces:
+          - acme-dns
+          - tls-certs
       kubernetesCRD:
         enabled: true
         ingressClass: "acme-dns"
