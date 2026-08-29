@@ -144,5 +144,5 @@ spec:
           cpu: 200m
           memory: 640Mi
     maxConcurrentChallenges: 2
-    dns01RecursiveNameservers: "10.96.0.10"
+    dns01RecursiveNameservers: "10.96.0.10:53"
     dns01RecursiveNameserversOnly: true
