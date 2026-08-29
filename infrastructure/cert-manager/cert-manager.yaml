@@ -116,11 +116,11 @@ spec:
           type: RuntimeDefault
       resources:
         requests:
-          cpu: 10m
-          memory: 32Mi
+          cpu: 100m
+          memory: 320Mi
         limits:
-          cpu: 20m
-          memory: 64Mi
+          cpu: 200m
+          memory: 640Mi
     startupapicheck:
       nodeSelector:
         node-role.kubernetes.io/infra: ""
