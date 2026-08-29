@@ -68,11 +68,11 @@ spec:
         type: RuntimeDefault
     resources:
       requests:
-        cpu: 10m
-        memory: 32Mi
+        cpu: 100m
+        memory: 320Mi
       limits:
-        cpu: 20m
-        memory: 64Mi
+        cpu: 200m
+        memory: 640Mi
     webhook:
       networkPolicy:
         enabled: true
@@ -95,11 +95,11 @@ spec:
           type: RuntimeDefault
       resources:
         requests:
-          cpu: 10m
-          memory: 32Mi
+          cpu: 100m
+          memory: 320Mi
         limits:
-          cpu: 20m
-          memory: 64Mi
+          cpu: 200m
+          memory: 640Mi
     cainjector:
       nodeSelector:
         node-role.kubernetes.io/infra: ""
@@ -137,8 +137,8 @@ spec:
           type: RuntimeDefault
       resources:
         requests:
-          cpu: 10m
-          memory: 32Mi
+          cpu: 100m
+          memory: 320Mi
         limits:
-          cpu: 20m
-          memory: 64Mi
+          cpu: 200m
+          memory: 640Mi
