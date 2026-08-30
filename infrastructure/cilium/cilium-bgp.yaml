@@ -28,7 +28,7 @@ spec:
 apiVersion: "cilium.io/v2"
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: "acme-dns-lb-pool"
+  name: "acme-dns-iot-s-pool"
 spec:
   blocks:
   - cidr: "30.0.0.8/32"
