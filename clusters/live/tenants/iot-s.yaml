@@ -11,7 +11,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./tenants/acme-dns
+  path: ./tenants/iot-s
   prune: true
   decryption:
     provider: sops
