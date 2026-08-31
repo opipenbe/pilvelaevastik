@@ -37,7 +37,7 @@ data:
     providers:
       kubernetesGateway:
         enabled: true
-        labelSelector: "gateway=traefik"
+        labelSelector: gateway=traefik
       kubernetesCRD:
         enabled: true
         safeNaming: true
