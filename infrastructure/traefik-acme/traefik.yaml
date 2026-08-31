@@ -71,7 +71,7 @@ spec:
       kubernetesIngress:
         enabled: false
     deployment:
-      replicas: 1
+      replicas: 2
     ingressClass:
       enabled: false
     updateStrategy:  # @schema additionalProperties: false
