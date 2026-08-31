@@ -54,6 +54,9 @@ data:
     providers:
       kubernetesGateway:
         enabled: true
+    gatewayClass:
+      enabled: true
+      name: traefik
     ports:
       web:
         port: 8000
