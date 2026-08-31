@@ -121,6 +121,6 @@ spec:
         "lbipam.cilium.io/sharing-cross-namespace": "acme-dns"
 
 
-    additionalArguments:
-          - "--providers.kubernetesgateway.namespaces=acme-dns,tls-certs,traefik-acme"
-          - "--providers.kubernetescrd.namespaces=acme-dns,tls-certs,traefik-acme"
+    #additionalArguments:
+    #      - "--providers.kubernetesgateway.namespaces=acme-dns,tls-certs,traefik-acme"
+    #      - "--providers.kubernetescrd.namespaces=acme-dns,tls-certs,traefik-acme"
