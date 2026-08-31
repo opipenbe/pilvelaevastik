@@ -70,6 +70,9 @@ spec:
         #  - traefik-acme
       kubernetesIngress:
         enabled: false
+    gatewayClass:
+      enabled: true
+      name: traefik-acme
     deployment:
       replicas: 2
     ingressClass:
