@@ -1,3 +1,4 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
@@ -23,5 +24,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: gateway-api
-  path: ./standard-install
+  path: ./config/crd
   targetNamespace: flux-system
