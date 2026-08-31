@@ -63,7 +63,7 @@ spec:
         #  - traefik-acme
       kubernetesCRD:
         enabled: true
-        ingressClass: "acme-dns"
+        #ingressClass: "acme-dns"
         #namespaces:
         #  - acme-dns
         #  - tls-certs
@@ -120,3 +120,7 @@ spec:
         "lbipam.cilium.io/sharing-key": "acme-dns"
         "lbipam.cilium.io/sharing-cross-namespace": "acme-dns"
 
+
+#additionalArguments:
+#      - "--providers.kubernetesgateway.namespaces=acme-dns,tls-certs,traefik-acme"
+#      - "--providers.kubernetescrd.namespaces=acme-dns,tls-certs,traefik-acme"
