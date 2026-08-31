@@ -91,39 +91,12 @@ spec:
       kind: Secret
       name: star-pipenberg-eu
 ---
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: selfsigned-issuer
-  namespace: traefik
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: selfsigned-cert
-  namespace: traefik
-spec:
-  secretName: selfsigned-cert-tls
-  duration: 2160h
-  renewBefore: 360h
-  subject:
-    organizations:
-      - My Organization
-  commonName: "*.pipenberg.eu"
-  dnsNames:
-    - "*.pipenberg.eu"
-  issuerRef:
-    name: selfsigned-issuer
-    kind: Issuer
----
 apiVersion: traefik.io/v1alpha1
 kind: TLSStore
 metadata:
   generation: 1
   name: default
-  namespace: traefik
+  namespace: tls-certs
 spec:
   defaultCertificate:
     secretName: star-pipenberg-eu
@@ -157,7 +130,9 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          -  name: star-pipenberg-eu
+        - kind: Secret
+          name: star-pipenberg-eu
+          namespace: tls-certs
       allowedRoutes:
         namespaces:
           from: Selector
