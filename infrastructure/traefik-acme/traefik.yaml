@@ -66,6 +66,7 @@ spec:
         namespaces:
           - acme-dns
           - tls-certs
+          - traefik-acme
       kubernetesIngress:
         enabled: false
     deployment:
