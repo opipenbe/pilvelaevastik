@@ -61,6 +61,7 @@ spec:
           - acme-dns
           - tls-certs
           - traefik-acme
+        labelSelector: "gateway=traefik-acme"
       kubernetesCRD:
         enabled: true
         ingressClass: "acme-dns"
@@ -74,6 +75,8 @@ spec:
     gatewayClass:
       enabled: true
       name: traefik-acme
+      labels:
+        gateway: traefik
     deployment:
       replicas: 2
     ingressClass:
