@@ -60,6 +60,7 @@ spec:
         namespaces:
           - acme-dns
           - tls-certs
+          - traefik-acme
       kubernetesCRD:
         enabled: true
         ingressClass: "acme-dns"
