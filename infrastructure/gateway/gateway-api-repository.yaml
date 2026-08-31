@@ -1,4 +1,4 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: gateway-api
@@ -9,3 +9,19 @@ spec:
   ref:
     #tag: v1.5.1
     commit: e7677b70ae75d14a4448fba94870e7deea6cf0ad
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: gateway-api-install
+  namespace: flux-system
+spec:
+  serviceAccountName: kustomize-controller
+  interval: 1h
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: gateway-api
+  path: ./standard-install
+  targetNamespace: flux-system
