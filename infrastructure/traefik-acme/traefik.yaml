@@ -63,7 +63,7 @@ spec:
         #  - traefik-acme
       kubernetesCRD:
         enabled: true
-        ##ingressClass: "acme-dns"
+        ingressClass: "acme-dns"
         #namespaces:
         #  - acme-dns
         #  - tls-certs
