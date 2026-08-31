@@ -54,7 +54,6 @@ data:
     providers:
       kubernetesGateway:
         enabled: true
-        experimentalChannel: true
     ports:
       web:
         port: 8000
