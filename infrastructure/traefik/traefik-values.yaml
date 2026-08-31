@@ -14,10 +14,10 @@ data:
     #log:
     #  format: "common"
     #  level: "INFO"
-    #logs:
-    #  access:
-    #    enabled: true
-    #    format: "common" 
+    logs:
+      access:
+        enabled: true
+        format: "common" 
     api:
       dashboard: false
     affinity:
@@ -34,6 +34,12 @@ data:
       - key: node-role.kubernetes.io/infra
         operator: Exists
         effect: NoSchedule
+    providers:
+      kubernetesGateway:
+        enabled: true
+      kubernetesCRD:
+        enabled: true
+        safeNaming: true
     deployment:
       replicas: 2
     updateStrategy:  # @schema additionalProperties: false
