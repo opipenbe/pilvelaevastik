@@ -76,7 +76,7 @@ spec:
       enabled: true
       name: traefik-acme
       labels:
-        gateway: traefik
+        gateway: traefik-acme
     deployment:
       replicas: 2
     ingressClass:
