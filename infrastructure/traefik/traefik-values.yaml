@@ -14,10 +14,10 @@ data:
     #log:
     #  format: "common"
     #  level: "INFO"
-    logs:
-      access:
-        enabled: true
-        format: "common" 
+    #logs:
+    #  access:
+    #    enabled: true
+    #    format: "common" 
     api:
       dashboard: false
     affinity:
