@@ -37,9 +37,15 @@ data:
     providers:
       kubernetesGateway:
         enabled: true
+        labelSelector: "gateway=traefik"
       kubernetesCRD:
         enabled: true
         safeNaming: true
+    gatewayClass:
+      enabled: true
+      name: traefik
+      labels:
+        gateway: traefik
     deployment:
       replicas: 2
     updateStrategy:  # @schema additionalProperties: false
