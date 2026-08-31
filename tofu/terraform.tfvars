@@ -1,6 +1,6 @@
 vms = {
   "t-cp1.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.11"
     network_cidr = "24"
@@ -23,7 +23,7 @@ vms = {
     }
   },
   "t-cp2.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.12"
     network_cidr = "24"
@@ -48,7 +48,7 @@ vms = {
     }
   },
   "t-cp3.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.13"
     network_cidr = "24"
