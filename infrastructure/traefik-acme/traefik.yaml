@@ -57,17 +57,18 @@ spec:
     providers:
       kubernetesGateway:
         enabled: true
-        #namespaces:
-        #  - acme-dns
-        #  - tls-certs
-        #  - traefik-acme
+        namespaces:
+          - acme-dns
+          - tls-certs
+          - traefik-acme
       kubernetesCRD:
         enabled: true
+        allowCrossNamespace: true
         #ingressClass: "acme-dns"
-        #namespaces:
-        #  - acme-dns
-        #  - tls-certs
-        #  - traefik-acme
+        namespaces:
+          - acme-dns
+          - tls-certs
+          - traefik-acme
       kubernetesIngress:
         enabled: false
     deployment:
