@@ -150,7 +150,7 @@ metadata:
   name: infra-gateway
   namespace: traefik-acme
 spec:
-  gatewayClassName: traefik
+  gatewayClassName: traefik-acme
   listeners:
     - name: websecure
       protocol: HTTPS
