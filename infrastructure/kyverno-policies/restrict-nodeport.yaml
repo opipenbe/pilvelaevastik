@@ -9,7 +9,7 @@ metadata:
   annotations:
     policies.kyverno.io/category: Workload Security and Governance Policies
 spec:
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   background: true
   rules:
     - name: disallow-nodeport
