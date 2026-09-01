@@ -123,6 +123,7 @@ spec:
                 values:
                   - policy-reporter
                   - shop
+                  - iot-s
     - name: websecure
       protocol: HTTPS
       port: 9443
@@ -143,6 +144,7 @@ spec:
                 values:
                   - policy-reporter
                   - shop
+                  - iot-s
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
