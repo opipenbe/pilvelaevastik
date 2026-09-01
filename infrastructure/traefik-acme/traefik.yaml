@@ -38,6 +38,8 @@ spec:
     #  access:
     #    enabled: true
     #    format: "common" 
+    accessLog:
+      enabled: true
     api:
       dashboard: false
     affinity:

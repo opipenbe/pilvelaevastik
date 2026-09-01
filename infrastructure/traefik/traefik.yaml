@@ -55,7 +55,9 @@ spec:
     #logs:
     #  access:
     #    enabled: true
-    #    format: "common" 
+    #    format: "common"
+    accessLog:
+      enabled: true
     api:
       dashboard: false
     affinity:
