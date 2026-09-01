@@ -80,7 +80,7 @@ spec:
         labelSelector: "gateway=traefik"
       kubernetesCRD:
         enabled: true
-        safeNaming: true
+        #safeNaming: true
       kubernetesIngress:
         enabled: false
     gatewayClass:
@@ -134,7 +134,4 @@ spec:
         protocol: TCP
     service:
       enabled: true
-      annotations:
-        "lbipam.cilium.io/sharing-key": "acme-dns"
-        "lbipam.cilium.io/sharing-cross-namespace": "acme-dns"
 
