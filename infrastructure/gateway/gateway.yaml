@@ -168,7 +168,7 @@ spec:
         #  namespace: tls-certs
         certificateRefs:
         - name: acme-dns-server-tls
-          namespace: tls-certs
+          #namespace: tls-certs
       allowedRoutes:
         namespaces:
           from: Selector
