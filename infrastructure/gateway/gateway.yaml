@@ -151,6 +151,8 @@ kind: Gateway
 metadata:
   name: infra-gateway
   namespace: traefik-acme
+  annotations:
+    cert-manager.io/cluster-issuer: "le-issuer"
 spec:
   gatewayClassName: traefik-acme
   listeners:
@@ -160,9 +162,12 @@ spec:
       hostname: "acme.pipenberg.eu"
       tls:
         mode: Terminate
+        #certificateRefs:
+        #- kind: Secret
+        #  name: acme-dns-server
+        #  namespace: tls-certs
         certificateRefs:
-        - kind: Secret
-          name: acme-dns-server
+        - name: acme-dns-server-tls
           namespace: tls-certs
       allowedRoutes:
         namespaces:
