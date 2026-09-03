@@ -74,6 +74,8 @@ spec:
         safeNaming: true
       kubernetesIngress:
         enabled: false
+    gateway:
+      enabled: false
     gatewayClass:
       enabled: true
       name: traefik-acme
