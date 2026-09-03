@@ -10,7 +10,7 @@ metadata:
   name: tls-certs
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: le-issuer
   namespace: tls-certs
