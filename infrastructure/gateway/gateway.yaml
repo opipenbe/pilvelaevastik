@@ -168,7 +168,7 @@ spec:
         #  namespace: tls-certs
         certificateRefs:
         - name: acme-dns-server-tls
-          #namespace: tls-certs
+          namespace: tls-certs
       allowedRoutes:
         namespaces:
           from: Selector
@@ -178,3 +178,18 @@ spec:
                 operator: In
                 values:
                   - acme-dns
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: ReferenceGrant
+metadata:
+  name: allow-gateway-tls
+  namespace: tls-certs
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: traefik-acme
+  to:
+    - group: ""
+      kind: Secret
+      name: acme-dns-server-tls
