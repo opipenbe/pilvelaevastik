@@ -168,6 +168,7 @@ spec:
         #  namespace: tls-certs
         certificateRefs:
         - name: acme-dns-server-tls
+          kind: Secret
           namespace: tls-certs
       allowedRoutes:
         namespaces:
