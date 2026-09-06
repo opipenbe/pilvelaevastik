@@ -297,18 +297,22 @@ data "talos_machine_configuration" "worker" {
   ])
 }
 
-resource "talos_machine_configuration_apply" "cp_config_apply" {
+resource "talos_machine" "cp_config_apply" {
   for_each          = local.vms_talos_role_cp
   client_configuration        = talos_machine_secrets.talos.client_configuration
-  machine_configuration_input = data.talos_machine_configuration.controller[each.key].machine_configuration
+  machine_configuration = data.talos_machine_configuration.controller[each.key].machine_configuration
   node      = each.value.ip
+  image = var.talos_image
+  kubeconfig_wo = talos_cluster_kubeconfig.talos.kubeconfig_raw 
 }
 
-resource "talos_machine_configuration_apply" "worker_config_apply" {
+resource "talos_machine" "worker_config_apply" {
   for_each          = local.vms_talos_role_worker
   client_configuration        = talos_machine_secrets.talos.client_configuration
-  machine_configuration_input = data.talos_machine_configuration.worker[each.key].machine_configuration
+  machine_configuration = data.talos_machine_configuration.worker[each.key].machine_configuration
   node      = each.value.ip
+  image = var.talos_image
+  kubeconfig_wo = talos_cluster_kubeconfig.talos.kubeconfig_raw
 }
 
 resource "talos_machine_bootstrap" "talos" {
