@@ -35,6 +35,7 @@ variable "vms" {
     talos = optional(object({
       node_role             = optional(string)
       enable_systemdisk_encryption = optional(bool, false)
+      talos_image = optional(string)
     }))
 
     # Kubernetes settings

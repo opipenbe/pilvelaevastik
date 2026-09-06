@@ -71,34 +71,34 @@ vms = {
       enable_systemdisk_encryption = true
     }
   },
-  "t-w1.pipenberg.eu" = {
-    memory = "8192"
-    cpus = "4"
-    ip = "172.16.90.14"
-    network_cidr = "24"
-    dns_server1 = "172.16.90.1"
-    dns_server2 = "172.16.90.2"
-    ntp_servers = ["172.16.90.1"]
-    gw_ip = "172.16.90.1"
-    root_disk_size = "102400"
-    data_disk1_size = "153600"
-    "pve" = {
-      node_name = "a-hv"
-      vm_storage = "ssd"
-      template_storage = "local"
-    },
-    labels = {
-          "topology.kubernetes.io/zone" = "a",
-          "node.longhorn.io/create-default-disk" = true
-        },
-    "talos" = {
-      node_role = "worker"
-      enable_systemdisk_encryption = true
-    }
-    "kubernetes" = {
-      infra_node = true
-    }
-  },
+#  "t-w1.pipenberg.eu" = {
+#    memory = "8192"
+#    cpus = "4"
+#    ip = "172.16.90.14"
+#    network_cidr = "24"
+#    dns_server1 = "172.16.90.1"
+#    dns_server2 = "172.16.90.2"
+#    ntp_servers = ["172.16.90.1"]
+#    gw_ip = "172.16.90.1"
+#    root_disk_size = "102400"
+#    data_disk1_size = "153600"
+#    "pve" = {
+#      node_name = "a-hv"
+#      vm_storage = "ssd"
+#      template_storage = "local"
+#    },
+#    labels = {
+#          "topology.kubernetes.io/zone" = "a",
+#          "node.longhorn.io/create-default-disk" = true
+#        },
+#    "talos" = {
+#      node_role = "worker"
+#      enable_systemdisk_encryption = true
+#    }
+#    "kubernetes" = {
+#      infra_node = true
+#    }
+#  },
   "t-w2.pipenberg.eu" = {
     memory = "8192"
     cpus = "4"
