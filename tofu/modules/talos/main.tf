@@ -10,7 +10,7 @@ terraform {
 }
 
 resource "talos_machine_secrets" "talos" {
-  talos_version    = var.talos_version
+  #talos_version    = var.talos_version
 }
 
 ## Loop machines with control-plane variable

@@ -3,6 +3,11 @@ output "kubeconfig" {
   sensitive = true
 }
 
+output "machine_secrets" {
+  value     =  module.talos.machine_secrets
+  sensitive = true
+}
+
 output "talosconfig" {
   value     = module.talos.talosconfig
   sensitive = true
