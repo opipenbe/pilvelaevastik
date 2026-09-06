@@ -6,7 +6,7 @@ terraform {
     }
 }
 
-resource "proxmox_virtual_environment_download_file" "talos_nocloud_image" {
+resource "proxmox_download_file" "talos_nocloud_image" {
   for_each = {
     for name, vm in var.vms :
     name => vm
@@ -56,7 +56,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   disk {
     datastore_id = each.value.pve.vm_storage
-    file_id      = proxmox_virtual_environment_download_file.talos_nocloud_image[each.key].id
+    file_id      = proxmox_download_file.talos_nocloud_image[each.key].id
     file_format  = "raw"
     interface    = "virtio0"
     cache        = "writethrough"

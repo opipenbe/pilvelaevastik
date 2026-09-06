@@ -71,6 +71,34 @@ vms = {
       enable_systemdisk_encryption = true
     }
   },
+  "t-w1.pipenberg.eu" = {
+    memory = "8192"
+    cpus = "4"
+    ip = "172.16.90.14"
+    network_cidr = "24"
+    dns_server1 = "172.16.90.1"
+    dns_server2 = "172.16.90.2"
+    ntp_servers = ["172.16.90.1"]
+    gw_ip = "172.16.90.1"
+    root_disk_size = "102400"
+    data_disk1_size = "153600"
+    "pve" = {
+      node_name = "a-hv"
+      vm_storage = "ssd"
+      template_storage = "local"
+    },
+    labels = {
+          "topology.kubernetes.io/zone" = "a",
+          "node.longhorn.io/create-default-disk" = true
+        },
+    "talos" = {
+      node_role = "worker"
+      enable_systemdisk_encryption = true
+    }
+    "kubernetes" = {
+      infra_node = true
+    }
+  },
   "t-w2.pipenberg.eu" = {
     memory = "8192"
     cpus = "4"
@@ -187,8 +215,8 @@ talos_k8s_cluster_name = "T-CLU"
 talos_k8s_cluster_endpoint = "https://t-clu.pipenberg.eu:6443"
 talos_k8s_cluster_vip = "172.16.90.10"
 image_registry_mirror = "https://registry.pipenberg.eu"
-talos_version = "1.13.7"
-talos_image = "factory.talos.dev/nocloud-installer-secureboot/48543e3f1d9a047be0aef499aa4c901ad1608294c426ebe88b574c1e38cbb4be:v1.13.7"
+talos_version = "1.13.8"
+talos_image = "factory.talos.dev/nocloud-installer-secureboot/48543e3f1d9a047be0aef499aa4c901ad1608294c426ebe88b574c1e38cbb4be:v1.13.8"
 k8s_version = "1.36.2"
 k8s_host_network = "172.16.90.0/24"
 mgmt_network = "172.16.88.0/24"
