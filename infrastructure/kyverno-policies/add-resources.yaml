@@ -41,7 +41,7 @@ spec:
                   - (name): "{{ element.name }}"
                     resources:
                       requests:
-                        +(memory): "100Mi"
+                        +(memory): "128Mi"
                         +(cpu): "100m"
                       limits:
-                        +(memory): "100Mi"
+                        +(memory): "128Mi"
