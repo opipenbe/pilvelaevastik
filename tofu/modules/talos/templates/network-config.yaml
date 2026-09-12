@@ -1,0 +1,17 @@
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local # The domain used by Kubernetes DNS.
+# The pod subnet (CIDR), this can be a single value or two values for dual-stack clusters.
+podSubnets:
+    - 10.245.0.0/16
+# The service subnet (CIDR), this can be a single value or two values for dual-stack clusters.
+serviceSubnets:
+    - 10.96.0.0/12
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+hostDNS:
+    enabled: true
+    forwardKubeDNSToHost: true
+    resolveMemberNames: true

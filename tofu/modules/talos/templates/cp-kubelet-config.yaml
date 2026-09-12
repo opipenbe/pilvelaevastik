@@ -1,0 +1,7 @@
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+#image: ghcr.io/siderolabs/kubelet:v1.37.0 # The container image used to run the kubelet component.
+# Provide extra configuration for the kubelet.
+extraArgs:
+    rotate-server-certificates: "true"

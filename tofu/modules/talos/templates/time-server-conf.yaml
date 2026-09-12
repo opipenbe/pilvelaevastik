@@ -1,0 +1,9 @@
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+# Specifies NTP configuration to sync the time over network.
+ntp:
+    # Specifies time (NTP) servers to use for setting the system time.
+    servers:
+        %{ for server in ntp_servers ~}
+        - ${server}
+        %{ endfor ~}

@@ -8,6 +8,11 @@ output "kubeconfig" {
   sensitive = true
 }
 
+output "machine_secrets" {
+  value     = talos_machine_secrets.talos
+  sensitive = true
+}
+
 output "kubernetes_client_configuration" {
   value     = talos_cluster_kubeconfig.talos.kubernetes_client_configuration
   sensitive = true

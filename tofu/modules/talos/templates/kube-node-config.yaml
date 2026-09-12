@@ -1,0 +1,11 @@
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+%{ for key, value in labels ~}
+  ${key}: ${value}
+%{ endfor ~}
+%{ if infra_node == true ~}
+taints:
+  "node-role.kubernetes.io/infra": "NoSchedule"
+%{ endif ~}

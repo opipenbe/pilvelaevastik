@@ -1,0 +1,6 @@
+--- 
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+extraArgs:
+    default-not-ready-toleration-seconds: "60"
+    default-unreachable-toleration-seconds: "60"

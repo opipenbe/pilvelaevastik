@@ -1,0 +1,5 @@
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: ${talos_k8s_cluster_vip} # IP address to be advertised as a Layer 2 VIP.
+link: eth0
