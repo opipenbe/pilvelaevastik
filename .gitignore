@@ -1,3 +1,4 @@
-tofu/.terraform/
-tofu/.envrc
-tofu/.terraform.lock.hcl
+tofu/environments/*/.terraform/
+tofu/environments/*/.envrc
+tofu/environments/*/terraform.tfstate
+tofu/environments/*/terraform.tfstate.backup

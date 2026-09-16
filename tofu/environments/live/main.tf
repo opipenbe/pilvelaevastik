@@ -1,11 +1,11 @@
 module "pve" {
-  source = "./modules/pve"
+  source = "../../modules/pve"
   vms = var.vms
   talos_image = var.talos_image
 }
 
 module "talos" {
-  source = "./modules/talos"
+  source = "../../modules/talos"
   talos_k8s_cluster_name = var.talos_k8s_cluster_name
   talos_k8s_cluster_endpoint = var.talos_k8s_cluster_endpoint
   talos_k8s_cluster_vip = var.talos_k8s_cluster_vip
@@ -18,13 +18,13 @@ module "talos" {
 }
 
 module "node" {
-  source = "./modules/node"
+  source = "../../modules/node"
   vms = var.vms
   depends_on = [module.talos]
 }
 
 module "cilium" {
-  source = "./modules/cilium"
+  source = "../../modules/cilium"
   talos_k8s_cluster_name = var.talos_k8s_cluster_name
   cilium_version = var.cilium_version
   cilium_peer_router_ip = var.cilium_peer_router_ip
@@ -33,7 +33,7 @@ module "cilium" {
 }
 
 module "fluxcd" {
-  source = "./modules/fluxcd"
+  source = "../../modules/fluxcd"
   sops_key = var.sops_key
   cilium_peer_router_ip = var.cilium_peer_router_ip
   cilium_peer_router_asn = var.cilium_peer_router_asn
@@ -46,7 +46,7 @@ module "fluxcd" {
 }
 
 module "audit" {
-  source = "./modules/audit"
+  source = "../../modules/audit"
   controller_machine_configuration = module.talos.machine_config_controller
   worker_machine_configuration = module.talos.machine_config_worker
   vms = var.vms

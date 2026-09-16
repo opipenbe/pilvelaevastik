@@ -47,40 +47,40 @@ data "talos_machine_configuration" "controller" {
   kubernetes_version = var.k8s_version
   config_patches = [
     # Patch to configure the control plane disk
-    templatefile("${path.root}/modules/talos/templates/control-plane-disk-patch.yaml", {
+    templatefile("${path.module}/templates/control-plane-disk-patch.yaml", {
       root_disk_size = each.value.root_disk_size
     }),
-    templatefile("${path.root}/modules/talos/templates/network-config.yaml", {
+    templatefile("${path.module}/templates/network-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/l2-vip-config.yaml", {
+    templatefile("${path.module}/templates/l2-vip-config.yaml", {
       talos_k8s_cluster_vip = var.talos_k8s_cluster_vip
     }),
-    templatefile("${path.root}/modules/talos/templates/flannel-cni-config.yaml", {
+    templatefile("${path.module}/templates/flannel-cni-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/time-server-conf.yaml", {
+    templatefile("${path.module}/templates/time-server-conf.yaml", {
       ntp_servers = [for key, value in each.value.ntp_servers : value]
     }),
-    templatefile("${path.root}/modules/talos/templates/kube-api-server-config.yaml", {
+    templatefile("${path.module}/templates/kube-api-server-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/admission-control-config.yaml", {
+    templatefile("${path.module}/templates/admission-control-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/kube-proxy.yaml", {
+    templatefile("${path.module}/templates/kube-proxy.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/unattended-install-config.yaml", {
+    templatefile("${path.module}/templates/unattended-install-config.yaml", {
       image = each.value.talos.talos_image != null ? each.value.talos.talos_image : var.talos_image
     }),
-    templatefile("${path.root}/modules/talos/templates/cp-kubelet-config.yaml", {
+    templatefile("${path.module}/templates/cp-kubelet-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/cp-sysctls.yaml", {
+    templatefile("${path.module}/templates/cp-sysctls.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/hostname.yaml", {
+    templatefile("${path.module}/templates/hostname.yaml", {
       hostname = each.key
     }),
-    templatefile("${path.root}/modules/talos/templates/kube-node-config.yaml", {
+    templatefile("${path.module}/templates/kube-node-config.yaml", {
       labels   = { for key, value in each.value.labels : key => value }
       infra_node = false
     }),
-    templatefile("${path.root}/modules/talos/templates/registry-mirror.yaml", {
+    templatefile("${path.module}/templates/registry-mirror.yaml", {
       image_registry_mirror = var.image_registry_mirror
     }),
     yamlencode({
@@ -131,35 +131,35 @@ data "talos_machine_configuration" "worker" {
   talos_version    = var.talos_version
   kubernetes_version = var.k8s_version
   config_patches = compact([
-    templatefile("${path.root}/modules/talos/templates/hostname.yaml", {
+    templatefile("${path.module}/templates/hostname.yaml", {
       hostname = each.key
     }),
-    templatefile("${path.root}/modules/talos/templates/kube-node-config.yaml", {
+    templatefile("${path.module}/templates/kube-node-config.yaml", {
       labels   = { for key, value in each.value.labels : key => value }
       infra_node = try(each.value.kubernetes.infra_node, false)
     }),
-    templatefile("${path.root}/modules/talos/templates/network-config.yaml", {
+    templatefile("${path.module}/templates/network-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/flannel-cni-config.yaml", {
+    templatefile("${path.module}/templates/flannel-cni-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/time-server-conf.yaml", {
+    templatefile("${path.module}/templates/time-server-conf.yaml", {
       ntp_servers = [for key, value in each.value.ntp_servers : value]
     }),
-    templatefile("${path.root}/modules/talos/templates/unattended-install-config.yaml", {
+    templatefile("${path.module}/templates/unattended-install-config.yaml", {
       image = each.value.talos.talos_image != null ? each.value.talos.talos_image : var.talos_image
     }),
-    templatefile("${path.root}/modules/talos/templates/worker-kubelet-config.yaml", {
+    templatefile("${path.module}/templates/worker-kubelet-config.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/worker-sysctls.yaml", {
+    templatefile("${path.module}/templates/worker-sysctls.yaml", {
     }),
-    templatefile("${path.root}/modules/talos/templates/worker-kernel-module.yaml", {
+    templatefile("${path.module}/templates/worker-kernel-module.yaml", {
     }),
     # Conditionally include the worker data disk patch
     coalesce(try(each.value.data_disk1_size, null), 0) > 0 ?
-    templatefile("${path.root}/modules/talos/templates/worker-disk-patch.yaml", {
+    templatefile("${path.module}/templates/worker-disk-patch.yaml", {
       data_disk1_size = coalesce(try(each.value.data_disk1_size, null), 0)
     }) : null,
-    templatefile("${path.root}/modules/talos/templates/registry-mirror.yaml", {
+    templatefile("${path.module}/templates/registry-mirror.yaml", {
       image_registry_mirror = var.image_registry_mirror
     }),
     yamlencode({

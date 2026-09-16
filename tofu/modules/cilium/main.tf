@@ -17,7 +17,7 @@ resource "helm_release" "cilium" {
   version    = var.cilium_version
   timeout = 600
   values = [
-    templatefile("${path.root}/modules/cilium/templates/cilium-values.yaml", {
+    templatefile("${path.module}/templates/cilium-values.yaml", {
       talos_k8s_cluster_name = lower(var.talos_k8s_cluster_name)
     })
   ]

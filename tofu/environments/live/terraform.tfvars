@@ -45,6 +45,7 @@ vms = {
     "talos" = {
       node_role = "control-plane",
       enable_systemdisk_encryption = true
+      #talos_image = "artifactory.pipenberg.eu/nocloud-installer/88d1f7a5c4f1d3aba7df787c448c1d3d008ed29cfb34af53fa0df4336a56040b:v1.14.0"
     }
   },
   "t-cp3.pipenberg.eu" = {
