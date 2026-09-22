@@ -2,7 +2,7 @@ terraform {
   required_providers {
     talos = {
       source  = "siderolabs/talos"
-      version = "0.12.0-beta.0"
+      version = "0.12.0"
     }
     proxmox = {
       source = "bpg/proxmox"
@@ -18,7 +18,7 @@ terraform {
     }
     flux = {
       source = "fluxcd/flux"
-      version = "1.9.0"
+      version = "1.9.5"
     }
     time = {
       source = "hashicorp/time"
