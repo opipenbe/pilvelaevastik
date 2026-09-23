@@ -13,6 +13,12 @@ resource "talos_machine_secrets" "talos" {
   #talos_version    = var.talos_version
 }
 
+ephemeral "talos_cluster_kubeconfig" "this" {
+  cluster_name    = var.talos_k8s_cluster_name
+  machine_secrets = talos_machine_secrets.talos.machine_secrets
+  endpoint        = "https://${var.talos_k8s_cluster_vip}:6443"
+}
+
 ## Loop machines with control-plane variable
 locals {
   vms_talos_role_cp = {
@@ -198,7 +204,7 @@ resource "talos_machine" "cp_config_apply" {
   machine_configuration = data.talos_machine_configuration.controller[each.key].machine_configuration
   node      = each.value.ip
   image = each.value.talos.talos_image != null ? each.value.talos.talos_image : var.talos_image
-  kubeconfig_wo = talos_cluster_kubeconfig.talos.kubeconfig_raw
+  kubeconfig_wo = ephemeral.talos_cluster_kubeconfig.this.kubeconfig_raw
   drain_on_upgrade = true
   ignore_kubernetes_upgrade_drift = true
 }
@@ -209,7 +215,7 @@ resource "talos_machine" "worker_config_apply" {
   machine_configuration = data.talos_machine_configuration.worker[each.key].machine_configuration
   node      = each.value.ip
   image = each.value.talos.talos_image != null ? each.value.talos.talos_image : var.talos_image
-  kubeconfig_wo = talos_cluster_kubeconfig.talos.kubeconfig_raw
+  kubeconfig_wo = ephemeral.talos_cluster_kubeconfig.this.kubeconfig_raw
   drain_on_upgrade = true
   ignore_kubernetes_upgrade_drift = true
 }
