@@ -1,6 +1,6 @@
 vms = {
   "t-cp1.pipenberg.eu" = {
-    memory = "6192"
+    memory = "4096"
     cpus = "4"
     ip = "172.16.90.11"
     network_cidr = "24"
@@ -19,7 +19,7 @@ vms = {
     }
   },
   "t-cp2.pipenberg.eu" = {
-    memory = "6192"
+    memory = "4096"
     cpus = "4"
     ip = "172.16.90.12"
     network_cidr = "24"
@@ -45,7 +45,7 @@ vms = {
     }
   },
   "t-cp3.pipenberg.eu" = {
-    memory = "6192"
+    memory = "4096"
     cpus = "4"
     ip = "172.16.90.13"
     network_cidr = "24"
@@ -70,8 +70,8 @@ vms = {
     }
   },
   "t-w1.pipenberg.eu" = {
-    memory = "4096"
-    cpus = "4"
+    memory = "2048"
+    cpus = "2"
     ip = "172.16.90.14"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
@@ -96,7 +96,7 @@ vms = {
     }
   },
   "t-w2.pipenberg.eu" = {
-    memory = "8192"
+    memory = "4096"
     cpus = "4"
     ip = "172.16.90.15"
     network_cidr = "24"
@@ -124,7 +124,7 @@ vms = {
     }
   },
   "t-w3.pipenberg.eu" = {
-    memory = "8192"
+    memory = "4096"
     cpus = "4"
     ip = "172.16.90.16"
     network_cidr = "24"
@@ -154,8 +154,8 @@ vms = {
   },
 
   "t-w4.pipenberg.eu" = {
-    memory = "4096"
-    cpus = "4"
+    memory = "2048"
+    cpus = "2"
     ip = "172.16.90.17"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
@@ -179,8 +179,8 @@ vms = {
     }
   },
   "t-w5.pipenberg.eu" = {
-    memory = "4096"
-    cpus = "4"
+    memory = "2048"
+    cpus = "2"
     ip = "172.16.90.18"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
@@ -204,8 +204,8 @@ vms = {
     }
   },
   "t-w6.pipenberg.eu" = {
-    memory = "4096"
-    cpus = "4"
+    memory = "2048"
+    cpus = "2"
     ip = "172.16.90.19"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
