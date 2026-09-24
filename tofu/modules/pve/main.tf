@@ -6,22 +6,6 @@ terraform {
     }
 }
 
-resource "proxmox_download_file" "talos_nocloud_image" {
-  for_each = {
-    for name, vm in var.vms :
-    name => vm
-    if vm.pve != null
-  }
-  content_type            = "iso"
-  datastore_id            = each.value.pve.template_storage
-  node_name               = each.value.pve.node_name
-  file_name               = "talos_template.img"
-  url = "https://factory.talos.dev/image/${replace(regex(".*?/nocloud-installer-secureboot/(.*)", var.talos_image)[0], ":", "/")}/nocloud-amd64-secureboot.raw.gz"
-  decompression_algorithm = "gz"
-  overwrite               = false
-  overwrite_unmanaged     = true
-}
-
 resource "proxmox_virtual_environment_vm" "vm" {
   for_each = {
     for name, vm in var.vms :
@@ -42,7 +26,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   memory {
     dedicated = each.value.memory
-    floating  = each.value.memory
+    #floating  = each.value.memory
   }
 
   agent {
@@ -56,7 +40,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   disk {
     datastore_id = each.value.pve.vm_storage
-    file_id      = proxmox_download_file.talos_nocloud_image[each.key].id
+    file_id      = "${each.value.pve.template_storage}:iso/talos_template.img"
     file_format  = "raw"
     interface    = "virtio0"
     cache        = "writethrough"

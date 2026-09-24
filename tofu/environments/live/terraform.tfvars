@@ -69,34 +69,34 @@ vms = {
       talos_image = "factory.talos.dev/nocloud-installer-secureboot/48543e3f1d9a047be0aef499aa4c901ad1608294c426ebe88b574c1e38cbb4be:v1.14.1"
     }
   },
-  "t-w1.pipenberg.eu" = {
-    memory = "2048"
-    cpus = "2"
-    ip = "172.16.90.14"
-    network_cidr = "24"
-    dns_server1 = "172.16.90.1"
-    dns_server2 = "172.16.90.2"
-    ntp_servers = ["172.16.90.1"]
-    gw_ip = "172.16.90.1"
-    root_disk_size = "102400"
-    "pve" = {
-      node_name = "b-hv"
-      vm_storage = "ssd"
-      template_storage = "local"
-    },
-    labels = {
-          "topology.kubernetes.io/zone" = "b",
-        },
-    "talos" = {
-      node_role = "worker"
-      enable_systemdisk_encryption = true
-    }
-    "kubernetes" = {
-      infra_node = false
-    }
-  },
+#  "t-w1.pipenberg.eu" = {
+#    memory = "2048"
+#    cpus = "2"
+#    ip = "172.16.90.14"
+#    network_cidr = "24"
+#    dns_server1 = "172.16.90.1"
+#    dns_server2 = "172.16.90.2"
+#    ntp_servers = ["172.16.90.1"]
+#    gw_ip = "172.16.90.1"
+#    root_disk_size = "102400"
+#    "pve" = {
+#      node_name = "b-hv"
+#      vm_storage = "ssd"
+#      template_storage = "local"
+#    },
+#    labels = {
+#          "topology.kubernetes.io/zone" = "b",
+#        },
+#    "talos" = {
+#      node_role = "worker"
+#      enable_systemdisk_encryption = true
+#    }
+#    "kubernetes" = {
+#      infra_node = false
+#    }
+#  },
   "t-w2.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.15"
     network_cidr = "24"
@@ -124,7 +124,7 @@ vms = {
     }
   },
   "t-w3.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.16"
     network_cidr = "24"
@@ -154,8 +154,8 @@ vms = {
   },
 
   "t-w4.pipenberg.eu" = {
-    memory = "2048"
-    cpus = "2"
+    memory = "4096"
+    cpus = "4"
     ip = "172.16.90.17"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
@@ -175,12 +175,12 @@ vms = {
         },
     "talos" = {
       node_role = "worker"
-      enable_systemdisk_encryption = true
+      enable_systemdisk_encryption = false
     }
   },
   "t-w5.pipenberg.eu" = {
-    memory = "2048"
-    cpus = "2"
+    memory = "4096"
+    cpus = "4"
     ip = "172.16.90.18"
     network_cidr = "24"
     dns_server1 = "172.16.90.1"
@@ -200,34 +200,34 @@ vms = {
         },
     "talos" = {
       node_role = "worker"
-      enable_systemdisk_encryption = true
-    }
-  },
-  "t-w6.pipenberg.eu" = {
-    memory = "2048"
-    cpus = "2"
-    ip = "172.16.90.19"
-    network_cidr = "24"
-    dns_server1 = "172.16.90.1"
-    dns_server2 = "172.16.90.2"
-    ntp_servers = ["172.16.90.1"]
-    gw_ip = "172.16.90.1"
-    root_disk_size = "102400"
-        
-    "pve" = {
-      node_name = "c-hv"
-      vm_storage = "ssd"
-      template_storage = "local"
-    },
-    labels = {
-          "topology.kubernetes.io/zone" = "c",
-          "node.longhorn.io/create-default-disk" = false
-        },
-    "talos" = {
-      node_role = "worker"
-      enable_systemdisk_encryption = true
+      enable_systemdisk_encryption = false
     }
   }
+#  "t-w6.pipenberg.eu" = {
+#    memory = "2048"
+#    cpus = "2"
+#    ip = "172.16.90.19"
+#    network_cidr = "24"
+#    dns_server1 = "172.16.90.1"
+#    dns_server2 = "172.16.90.2"
+#    ntp_servers = ["172.16.90.1"]
+#    gw_ip = "172.16.90.1"
+#    root_disk_size = "102400"
+#        
+#    "pve" = {
+#      node_name = "c-hv"
+#      vm_storage = "ssd"
+#      template_storage = "local"
+#    },
+#    labels = {
+#          "topology.kubernetes.io/zone" = "c",
+#          "node.longhorn.io/create-default-disk" = false
+#        },
+#    "talos" = {
+#      node_role = "worker"
+#      enable_systemdisk_encryption = true
+#    }
+#  }
 }
 ### TOFU ###
 tofu_s3_backend_bucket = "tclu-tofu"
