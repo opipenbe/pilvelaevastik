@@ -1,0 +1,25 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: iot-w
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: kyverno-policies
+  interval: 5m
+  serviceAccountName: kustomize-controller
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./tenants/iot-w
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substitute:
+      GIT_REPO: "https://github.com/opipenbe/wattzwize.git"
+      GIT_BRANCH: "main"
+      NAMESPACE: "iot-w"
+      FLUX_SERVICE_ACCOUNT_NAME: "flux"
