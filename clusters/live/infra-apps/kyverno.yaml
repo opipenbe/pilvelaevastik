@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: istio
+    #- name: istio
     - name: cilium
   interval: 720m0s
   sourceRef:
