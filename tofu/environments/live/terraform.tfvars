@@ -154,7 +154,7 @@ vms = {
   },
 
   "t-w4.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.17"
     network_cidr = "24"
@@ -179,7 +179,7 @@ vms = {
     }
   },
   "t-w5.pipenberg.eu" = {
-    memory = "4096"
+    memory = "6192"
     cpus = "4"
     ip = "172.16.90.18"
     network_cidr = "24"
